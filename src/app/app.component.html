@@ -1,0 +1,33 @@
+<ion-app>
+    <ion-menu side="start" contentId="main" menuId="menuBar">
+        <ion-header>
+            <ion-toolbar translucent>
+                <ion-title>Menu</ion-title>
+            </ion-toolbar>
+        </ion-header>
+        <ion-content scrollY="false">
+            <div style="height: 100%; overflow: auto;">
+                <div class="w-100 p-2">
+                    <button (click)="selectMenu('img-upload')" block="true" class="z-depth-0 grey text-white" mdbBtn mdbWavesEffect type="button">
+                        <mdb-icon fas icon="file-upload" class="pr-2" size="lg"></mdb-icon>
+                        이미지 업로드
+                    </button>
+                </div>
+                <div class="w-100 p-2">
+                    <button (click)="selectMenu('img-edit')" block="true" class="z-depth-0 grey text-white" mdbBtn mdbWavesEffect type="button" >
+                        <mdb-icon fas icon="file-upload" class="pr-2" size="lg"></mdb-icon>
+                        이미지 편지 &nbsp;
+                    </button>
+                </div>
+                <div class="w-100 p-2">
+                    <button (click)="selectMenu('img-slide')" block="true" class="z-depth-0 grey text-white" mdbBtn mdbWavesEffect type="button" menuClose>
+                        <mdb-icon fas icon="file-upload" class="pr-3" size="lg"></mdb-icon>
+                        슬라이드 &nbsp;
+                    </button>
+                </div>
+            </div>
+        </ion-content>
+    </ion-menu>
+  <ion-router-outlet id="main"></ion-router-outlet>
+</ion-app>
+

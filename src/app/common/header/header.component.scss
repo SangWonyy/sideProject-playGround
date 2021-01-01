@@ -1,0 +1,28 @@
+ion-toolbar {
+  --min-height: 70px;
+}
+
+
+.btn_1 {
+  --background: #FF8633;
+  --background-hover: #ff7c1f;
+  --background-focused: #ffffff00;
+  --background-activated: #ffffff00;
+  --color: #ffffff;
+  --color-activated: #ffe7d3;
+  --color-focused: #FFE7D3;
+  --color-hover: #FFE7D3;
+
+}
+
+.btn_2 {
+  --color: #FF8633;
+  --color-activated: #d25300;
+  --color-focused: #d25300;
+  --color-hover: #d25300;
+  --border-color: #d25300;
+  --background-hover: #ffffff00;
+  --background-focused: #ffffff00;
+  --background-activated: #ffffff00;
+
+}
