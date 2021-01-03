@@ -44,7 +44,7 @@
               "node_modules/@fortawesome/fontawesome-free/scss/brands.scss",
               "node_modules/angular-bootstrap-md/assets/scss/bootstrap/bootstrap.scss",
               "node_modules/angular-bootstrap-md/assets/scss/mdb.scss",
-              "node_modules/animate.css/animate.css",
+              "node_modules/animate.css/animate.css"
             ],
             "scripts": [
               "node_modules/chart.js/dist/Chart.js",
@@ -138,7 +138,9 @@
               "tsconfig.spec.json",
               "e2e/tsconfig.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "e2e": {
@@ -184,7 +186,8 @@
     }
   },
   "cli": {
-    "defaultCollection": "@ionic/angular-toolkit"
+    "defaultCollection": "@ionic/angular-toolkit",
+    "analytics": "dec0bfe0-c8fd-4097-98a7-3148ed719958"
   },
   "schematics": {
     "@ionic/angular-toolkit:component": {

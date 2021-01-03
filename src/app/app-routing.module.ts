@@ -5,13 +5,12 @@ const routes: Routes = [
   {
     path: '',
     data: {menuType: 'mainPage'},
-    redirectTo: 'editSomething-main',
+    redirectTo: 'playground-main',
     pathMatch: 'full'
   },
   {
-    path: 'editSomething-main',
-    data: {menuType: 'mainPage'},
-    loadChildren: () => import('./editSomeThing-main/editSomething-main.module').then(m => m.EditSomeThingMainPageModule)
+    path: 'playground-main',
+    loadChildren: () => import('./playground-main/playground-main.module').then( m => m.PlaygroundMainPageModule)
   },
   {
     path: 'img-upload',
@@ -28,6 +27,8 @@ const routes: Routes = [
     data: {menuType: 'slide'},
     loadChildren: () => import('./img-slide/img-slide.module').then(m => m.ImgSlidePageModule)
   }
+
+
 ];
 
 @NgModule({
