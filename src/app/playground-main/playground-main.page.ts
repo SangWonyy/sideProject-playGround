@@ -114,8 +114,8 @@ export class PlaygroundMainPage implements OnInit {
           canvas: document.querySelector('.image-blend-canvas') as HTMLCanvasElement,
           // context: document.querySelector('.image-blend-canvas').getContext('2d'),
           imagesPath: [
-            './assets/main/image/blend-image-1.jpg',
-            './assets/main/image/blend-image-2.jpg'
+            'assets/main/image/blend-image-1.jpg',
+            'assets/main/image/blend-image-2.jpg'
           ],
           images: []
         },
@@ -134,9 +134,10 @@ export class PlaygroundMainPage implements OnInit {
     this.setLayout(); // 중간에 새로고침 시, 콘텐츠 양에 따라 높이 계산에 오차가 발생하는 경우를 방지하기 위해 before-load 클래스 제거 전에도 확실하게 높이를 세팅하도록 한번 더 실행
     document.body.classList.remove('before-load');
     this.setLayout();
-    const canvas = this.sceneInfo[0].objs.canvas as HTMLCanvasElement;
-    const context = canvas.getContext('2d');
-    context.drawImage(this.sceneInfo[0].objs.videoImages[0], 0, 0);
+    const context = this.sceneInfo[0].objs.canvas.getContext('2d');
+    this.sceneInfo[0].objs.videoImages[0].onload = (() => {
+      context.drawImage(this.sceneInfo[0].objs.videoImages[0], 0, 0);
+    })
 
     // 중간에서 새로고침 했을 경우 자동 스크롤로 제대로 그려주기
     let tempYOffset = this.yOffset;
@@ -181,14 +182,14 @@ export class PlaygroundMainPage implements OnInit {
     let imgElem;
     for (let i = 0; i < this.sceneInfo[0].values.videoImageCount; i++) {
       imgElem = new Image();
-      imgElem.src = `./assets/main/video/001/IMG_${6726 + i}.JPG`;
+      imgElem.src = `assets/main/video/001/IMG_${6726 + i}.JPG`;
       this.sceneInfo[0].objs.videoImages.push(imgElem);
     }
 
     let imgElem2;
     for (let i = 0; i < this.sceneInfo[2].values.videoImageCount; i++) {
       imgElem2 = new Image();
-      imgElem2.src = `./assets/main/video/002/IMG_${7027 + i}.JPG`;
+      imgElem2.src = `assets/main/video/002/IMG_${7027 + i}.JPG`;
       this.sceneInfo[2].objs.videoImages.push(imgElem2);
     }
 
