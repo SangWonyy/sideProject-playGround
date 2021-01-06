@@ -38,11 +38,12 @@ ion-content {
   --background: #fff url('./assets/background/background.jpg') no-repeat center center / cover;
 }
 html {
-  font-family: 'Apple SD Gothic Neo', Roboto, 'Noto Sans KR', NanumGothic, 'Malgun Gothic', sans-serif;
+  font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', NanumGothic, 'Malgun Gothic', sans-serif;
   line-height: 1.2;
   word-wrap: break-word;
   font-size: 14px;
 }
+
 body {
   -webkit-font-smoothing: antialiased;
 }
@@ -96,7 +97,6 @@ button {
 }
 
 html {
-  font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
 }
 body {

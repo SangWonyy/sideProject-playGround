@@ -42,7 +42,7 @@ a {
 body.before-load {
   overflow: hidden;
 }
-.container {
+.containerBox {
   /* iPhone 가로 스크롤 방지 */
   overflow-x: hidden;
 }
@@ -82,6 +82,7 @@ body.before-load {
   max-width: 1000px;
   height: 100%;
   margin: 0 auto;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 .global-nav-links {
   justify-content: space-between;
@@ -102,6 +103,7 @@ body.before-load {
   padding-top: 50vh;
 }
 #scroll-section-0 h1 {
+  font-family: 'Noto Sans KR', sans-serif;
   position: relative;
   top: -10vh;
   z-index: 5;
@@ -109,6 +111,7 @@ body.before-load {
   text-align: center;
 }
 .main-message {
+  font-family: 'Noto Sans KR', sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -231,7 +234,7 @@ body.before-load {
   opacity: 0;
   transition: 0.5s;
 }
-.before-load .container {
+.before-load .containerBox {
   display: none;
 }
 .before-load .loading {
