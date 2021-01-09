@@ -1,5 +1,6 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {AppService} from "../service/app.service";
+import {Platform} from "@ionic/angular";
 
 @Component({
   selector: 'app-playground-main',
@@ -132,38 +133,38 @@ export class PlaygroundMainPage implements OnInit {
     ];
     this.setCanvasImages();
     this.setLayout(); // 중간에 새로고침 시, 콘텐츠 양에 따라 높이 계산에 오차가 발생하는 경우를 방지하기 위해 before-load 클래스 제거 전에도 확실하게 높이를 세팅하도록 한번 더 실행
-    document.body.classList.remove('before-load');
+    // document.querySelector(`#show-scene-${this.currentScene}`).classList.remove('before-load');
     this.setLayout();
-    const context = this.sceneInfo[0].objs.canvas.getContext('2d');
-    this.sceneInfo[0].objs.videoImages[0].onload = (() => {
-      context.drawImage(this.sceneInfo[0].objs.videoImages[0], 0, 0);
-    })
+    // const context = this.sceneInfo[0].objs.canvas.getContext('2d');
+    // this.sceneInfo[0].objs.videoImages[0].onload = (() => {
+    //   context.drawImage(this.sceneInfo[0].objs.videoImages[0], 0, 0);
+    // })
 
     // 중간에서 새로고침 했을 경우 자동 스크롤로 제대로 그려주기
-    let tempYOffset = this.yOffset;
-    let tempScrollCount = 0;
-    if (tempYOffset > 0) {
-      let siId = setInterval(() => {
-        scrollTo(0, tempYOffset);
-        tempYOffset += 5;
-
-        if (tempScrollCount > 20) {
-          clearInterval(siId);
-        }
-        tempScrollCount++;
-      }, 20);
-    }
+    // let tempYOffset = this.yOffset;
+    // let tempScrollCount = 0;
+    // if (tempYOffset > 0) {
+    //   let siId = setInterval(() => {
+    //     scrollTo(0, tempYOffset);
+    //     tempYOffset += 5;
+    //
+    //     if (tempScrollCount > 20) {
+    //       clearInterval(siId);
+    //     }
+    //     tempScrollCount++;
+    //   }, 20);
+    // }
 
     this.scrollEvent();
-
-    this.resizeEvent();
-
-    this.orientationchangeEvent();
+    //
+    // this.resizeEvent();
+    //
+    // this.orientationchangeEvent();
 
     // this.transitionendEvent();
   }
 
-  constructor(public app: AppService) {
+  constructor(public app: AppService, public platform: Platform) {
   }
 
   ngOnInit() {
@@ -204,10 +205,11 @@ export class PlaygroundMainPage implements OnInit {
   }
 
   checkMenu() {
+    const currentContent = document.querySelector(`show-scene-${this.currentScene}`);
     if (this.yOffset > 44) {
-      document.body.classList.add('local-nav-sticky');
+      currentContent.classList.add('local-nav-sticky');
     } else {
-      document.body.classList.remove('local-nav-sticky');
+      currentContent.classList.remove('local-nav-sticky');
     }
   }
 
@@ -234,7 +236,6 @@ export class PlaygroundMainPage implements OnInit {
         break;
       }
     }
-    document.body.setAttribute('id', `show-scene-${this.currentScene}`);
 
     const heightRatio = window.innerHeight / 1080;
     this.sceneInfo[0].objs.canvas.style.transform = `translate3d(-50%, -50%, 0) scale(${heightRatio})`;
@@ -400,7 +401,7 @@ export class PlaygroundMainPage implements OnInit {
           context.drawImage(objs.images[0], 0, 0);
 
           // 캔버스 사이즈에 맞춰 가정한 innerWidth와 innerHeight
-          const recalculatedInnerWidth = document.body.offsetWidth / canvasScaleRatio;
+          const recalculatedInnerWidth = this.platform.width() / canvasScaleRatio;
           const recalculatedInnerHeight = window.innerHeight / canvasScaleRatio;
 
           const whiteRectWidth = recalculatedInnerWidth * 0.15;
@@ -447,7 +448,7 @@ export class PlaygroundMainPage implements OnInit {
         context.drawImage(objs.images[0], 0, 0);
 
         // 캔버스 사이즈에 맞춰 가정한 innerWidth와 innerHeight
-        const recalculatedInnerWidth = document.body.offsetWidth / canvasScaleRatio;
+        const recalculatedInnerWidth = this.platform.width() / canvasScaleRatio;
         const recalculatedInnerHeight = window.innerHeight / canvasScaleRatio;
 
         if (!values.rectStartY) {
@@ -511,7 +512,7 @@ export class PlaygroundMainPage implements OnInit {
           // @ts-ignore
           if (scrollRatio > values.blendHeight[2].end) {
             values.canvas_scale[0] = canvasScaleRatio;
-            values.canvas_scale[1] = document.body.offsetWidth / (1.5 * objs.canvas.width);
+            values.canvas_scale[1] = this.platform.width() / (1.5 * objs.canvas.width);
             // @ts-ignore
             values.canvas_scale[2].start = values.blendHeight[2].end;
             // @ts-ignore
@@ -549,24 +550,24 @@ export class PlaygroundMainPage implements OnInit {
   scrollLoop() {
     this.enterNewScene = false;
     this.prevScrollHeight = 0;
-
+    const currentContent = document.querySelector(`"#show-scene-" + ${this.currentScene}`);
     for (let i = 0; i < this.currentScene; i++) {
       this.prevScrollHeight += this.sceneInfo[i].scrollHeight;
     }
 
     if (this.delayedYOffset < this.prevScrollHeight + this.sceneInfo[this.currentScene].scrollHeight) {
-      document.body.classList.remove('scroll-effect-end');
+      currentContent.classList.remove('scroll-effect-end');
     }
 
     if (this.delayedYOffset > this.prevScrollHeight + this.sceneInfo[this.currentScene].scrollHeight) {
       this.enterNewScene = true;
       if (this.currentScene === this.sceneInfo.length - 1) {
-        document.body.classList.add('scroll-effect-end');
+        currentContent.classList.add('scroll-effect-end');
       }
       if (this.currentScene < this.sceneInfo.length - 1) {
         this.currentScene++;
       }
-      document.body.setAttribute('id', `show-scene-${this.currentScene}`);
+      currentContent.setAttribute('id', `show-scene-${this.currentScene}`);
     }
 
     if (this.delayedYOffset < this.prevScrollHeight) {
@@ -574,7 +575,7 @@ export class PlaygroundMainPage implements OnInit {
       // 브라우저 바운스 효과로 인해 마이너스가 되는 것을 방지(모바일)
       if (this.currentScene === 0) return;
       this.currentScene--;
-      document.body.setAttribute('id', `show-scene-${this.currentScene}`);
+      currentContent.setAttribute('id', `show-scene-${this.currentScene}`);
     }
 
     if (this.enterNewScene) return;
@@ -608,7 +609,7 @@ export class PlaygroundMainPage implements OnInit {
       context.drawImage(this.sceneInfo[0].objs.videoImages[0], 0, 0);
     }
     // 페이지 맨 아래로 갈 경우: 마지막 섹션은 스크롤 계산으로 위치 및 크기를 결정해야할 요소들이 많아서 1픽셀을 움직여주는 것으로 해결
-    if ((document.body.offsetHeight - window.innerHeight) - this.delayedYOffset < 1) {
+    if ((this.platform.height() - window.innerHeight) - this.delayedYOffset < 1) {
       let tempYOffset = this.yOffset;
       scrollTo(0, tempYOffset - 1);
     }
@@ -626,6 +627,7 @@ console.log('softLoop')
 
   scrollEvent() {
     window.addEventListener('scroll', () => {
+      console.log('scroll')
       this.yOffset = window.pageYOffset;
       this.scrollLoop();
       this.checkMenu();
@@ -637,23 +639,23 @@ console.log('softLoop')
       }
     });
   }
-
-  resizeEvent() {
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 900) {
-        window.location.reload();
-      }
-    });
-  }
-
-  orientationchangeEvent() {
-    window.addEventListener('orientationchange', () => {
-      scrollTo(0, 0);
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
-    });
-  }
+  //
+  // resizeEvent() {
+  //   window.addEventListener('resize', () => {
+  //     if (window.innerWidth > 900) {
+  //       window.location.reload();
+  //     }
+  //   });
+  // }
+  //
+  // orientationchangeEvent() {
+  //   window.addEventListener('orientationchange', () => {
+  //     scrollTo(0, 0);
+  //     setTimeout(() => {
+  //       window.location.reload();
+  //     }, 500);
+  //   });
+  // }
 
   // transitionendEvent() {
   //   document.querySelector('.loading').addEventListener('transitionend', (e) => {

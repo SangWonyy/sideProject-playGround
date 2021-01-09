@@ -1,10 +1,9 @@
-<ion-content>
+<ion-content [id] = "'show-scene-' + currentScene">
 <!--  <div class="loading">-->
 <!--    <svg class="loading-circle">-->
 <!--      <circle cx="50%" cy="50%" r="25"></circle>-->
 <!--    </svg>-->
 <!--  </div>-->
-  <div class="containerBox">
     <nav class="global-nav">
       <div class="global-nav-links">
         <a href="#" class="global-nav-item">Rooms</a>
@@ -21,7 +20,7 @@
         <a href="#">구입하기</a>
       </div>
     </nav>
-    <section class="scroll-section" id="scroll-section-0">
+    <div class="scroll-section" id="scroll-section-0">
       <h1>AirMug Pro</h1>
       <div class="sticky-elem sticky-elem-canvas">
         <canvas id="video-canvas-0" width="1920" height="1080"></canvas>
@@ -38,7 +37,7 @@
       <div class="sticky-elem main-message d">
         <p>새롭게 입가를<br>찾아온 매혹</p>
       </div>
-    </section>
+    </div>
     <section class="scroll-section" id="scroll-section-1">
       <p class="description">
         <strong>보통 스크롤 영역</strong>
@@ -82,6 +81,5 @@
     <footer class="footer">
       2020, 1분코딩
     </footer>
-  </div>
 </ion-content>
 
