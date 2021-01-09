@@ -156,14 +156,23 @@ export class PlaygroundMainPage implements OnInit {
       }, 20);
     }
 
-    this.scrollEvent();
-
-    this.resizeEvent();
-
-    this.orientationchangeEvent();
-
     // this.transitionendEvent();
   }
+
+  @HostListener('window:resize')
+  resizeEvent() {
+    if (window.innerWidth > 900) {
+      window.location.reload();
+    }
+  }
+
+  // @HostListener('window:orientationchange')
+  // orientationchangeEvent() {
+  //   scrollTo(0, 0);
+  //   setTimeout(() => {
+  //     window.location.reload();
+  //   }, 500);
+  // }
 
   constructor(public app: AppService, public platform: Platform) {
   }
@@ -206,7 +215,7 @@ export class PlaygroundMainPage implements OnInit {
   }
 
   checkMenu() {
-    const currentContent = document.querySelector(`show-scene-${this.currentScene}`);
+    const currentContent = document.querySelector(`#show-scene-${this.currentScene}`);
     if (this.yOffset > 44) {
       currentContent.classList.add('local-nav-sticky');
     } else {
@@ -551,7 +560,7 @@ export class PlaygroundMainPage implements OnInit {
   scrollLoop() {
     this.enterNewScene = false;
     this.prevScrollHeight = 0;
-    const currentContent = document.querySelector(`"#show-scene-" + ${this.currentScene}`);
+    const currentContent = document.querySelector(`#show-scene-${this.currentScene}`);
     for (let i = 0; i < this.currentScene; i++) {
       this.prevScrollHeight += this.sceneInfo[i].scrollHeight;
     }
@@ -586,7 +595,7 @@ export class PlaygroundMainPage implements OnInit {
   }
 
   softLoop() {
-    const canvas = this.sceneInfo[0].objs.canvas as HTMLCanvasElement;
+    const canvas = this.sceneInfo[this.currentScene].objs.canvas as HTMLCanvasElement;
     const context = canvas.getContext('2d');
     this.delayedYOffset = this.delayedYOffset + (this.yOffset - this.delayedYOffset) * this.acc;
 
@@ -597,7 +606,9 @@ export class PlaygroundMainPage implements OnInit {
         const values = this.sceneInfo[this.currentScene].values;
         let sequence = Math.round(this.calcValues(values.imageSequence, currentYOffset));
         if (objs.videoImages[sequence]) {
-          context.drawImage(objs.videoImages[sequence], 0, 0);
+          objs.videoImages[sequence].onload = (() => {
+            context.drawImage(objs.videoImages[sequence], 0, 0);
+          })
         }
       }
     }
@@ -607,18 +618,21 @@ export class PlaygroundMainPage implements OnInit {
     if (this.delayedYOffset < 1) {
       this.scrollLoop();
       canvas.style.opacity = "1";
-      context.drawImage(this.sceneInfo[0].objs.videoImages[0], 0, 0);
+      this.sceneInfo[0].objs.videoImages[0].onload = (() => {
+        context.drawImage(this.sceneInfo[0].objs.videoImages[0], 0, 0);
+      });
     }
     // 페이지 맨 아래로 갈 경우: 마지막 섹션은 스크롤 계산으로 위치 및 크기를 결정해야할 요소들이 많아서 1픽셀을 움직여주는 것으로 해결
     if ((this.platform.height() - window.innerHeight) - this.delayedYOffset < 1) {
       let tempYOffset = this.yOffset;
       scrollTo(0, tempYOffset - 1);
     }
-console.log('softLoop')
+console.log('softLoop', this.rafId);
     // @ts-ignore
     this.rafId = requestAnimationFrame(this.softLoop());
 
     if (Math.abs(this.yOffset - this.delayedYOffset) < 1) {
+      console.log('cancel Loop')
       cancelAnimationFrame(this.rafId);
       this.rafState = false;
     }
@@ -627,36 +641,21 @@ console.log('softLoop')
 
 
   scrollEvent() {
-    window.addEventListener('scroll', () => {
-      console.log('scroll')
-      this.yOffset = window.pageYOffset;
-      this.scrollLoop();
-      this.checkMenu();
+    console.log('scroll')
+    this.yOffset = window.pageYOffset;
+    this.scrollLoop();
+    this.checkMenu();
 
-      if (!this.rafState) {
-        // @ts-ignore
-        this.rafId = requestAnimationFrame(this.softLoop());
-        this.rafState = true;
-      }
-    });
+    if (!this.rafState) {
+      // @ts-ignore
+      this.rafId = requestAnimationFrame(this.softLoop());
+      this.rafState = true;
+    }
   }
   //
-  resizeEvent() {
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 900) {
-        window.location.reload();
-      }
-    });
-  }
 
-  orientationchangeEvent() {
-    window.addEventListener('orientationchange', () => {
-      scrollTo(0, 0);
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
-    });
-  }
+
+
 
   // transitionendEvent() {
   //   document.querySelector('.loading').addEventListener('transitionend', (e) => {
