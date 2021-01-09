@@ -26,11 +26,11 @@ export class PlaygroundMainPage implements OnInit {
         heightNum: 5, // 브라우저 높이의 5배로 scrollHeight 세팅
         scrollHeight: 0,
         objs: {
-          container: document.querySelector('#scroll-section-0') as HTMLElement,
-          messageA: document.querySelector('#scroll-section-0 .main-message.a') as HTMLElement,
-          messageB: document.querySelector('#scroll-section-0 .main-message.b') as HTMLElement,
-          messageC: document.querySelector('#scroll-section-0 .main-message.c') as HTMLElement,
-          messageD: document.querySelector('#scroll-section-0 .main-message.d') as HTMLElement,
+          container: document.querySelector('#scroll-section-1') as HTMLElement,
+          messageA: document.querySelector('#scroll-section-1 .main-message.a') as HTMLElement,
+          messageB: document.querySelector('#scroll-section-1 .main-message.b') as HTMLElement,
+          messageC: document.querySelector('#scroll-section-1 .main-message.c') as HTMLElement,
+          messageD: document.querySelector('#scroll-section-1 .main-message.d') as HTMLElement,
           canvas: document.querySelector('#video-canvas-0') as HTMLCanvasElement,
           // context: document.querySelector('#video-canvas-0').getContext('2d'),
           videoImages: []
@@ -63,8 +63,8 @@ export class PlaygroundMainPage implements OnInit {
         // heightNum: 5, // type normal에서는 필요 없음
         scrollHeight: 0,
         objs: {
-          container: document.querySelector('#scroll-section-1') as HTMLElement,
-          content: document.querySelector('#scroll-section-1 .description') as HTMLElement
+          container: document.querySelector('#scroll-section-1-5') as HTMLElement,
+          content: document.querySelector('#scroll-section-1-5 .description') as HTMLElement
         }
       },
       {
@@ -134,32 +134,33 @@ export class PlaygroundMainPage implements OnInit {
     this.setCanvasImages();
     this.setLayout(); // 중간에 새로고침 시, 콘텐츠 양에 따라 높이 계산에 오차가 발생하는 경우를 방지하기 위해 before-load 클래스 제거 전에도 확실하게 높이를 세팅하도록 한번 더 실행
     // document.querySelector(`#show-scene-${this.currentScene}`).classList.remove('before-load');
-    this.setLayout();
-    // const context = this.sceneInfo[0].objs.canvas.getContext('2d');
-    // this.sceneInfo[0].objs.videoImages[0].onload = (() => {
-    //   context.drawImage(this.sceneInfo[0].objs.videoImages[0], 0, 0);
-    // })
+    // this.setLayout();
+
+    const context = this.sceneInfo[0].objs.canvas.getContext('2d');
+    this.sceneInfo[0].objs.videoImages[0].onload = (() => {
+      context.drawImage(this.sceneInfo[0].objs.videoImages[0], 0, 0);
+    })
 
     // 중간에서 새로고침 했을 경우 자동 스크롤로 제대로 그려주기
-    // let tempYOffset = this.yOffset;
-    // let tempScrollCount = 0;
-    // if (tempYOffset > 0) {
-    //   let siId = setInterval(() => {
-    //     scrollTo(0, tempYOffset);
-    //     tempYOffset += 5;
-    //
-    //     if (tempScrollCount > 20) {
-    //       clearInterval(siId);
-    //     }
-    //     tempScrollCount++;
-    //   }, 20);
-    // }
+    let tempYOffset = this.yOffset;
+    let tempScrollCount = 0;
+    if (tempYOffset > 0) {
+      let siId = setInterval(() => {
+        scrollTo(0, tempYOffset);
+        tempYOffset += 5;
+
+        if (tempScrollCount > 20) {
+          clearInterval(siId);
+        }
+        tempScrollCount++;
+      }, 20);
+    }
 
     this.scrollEvent();
-    //
-    // this.resizeEvent();
-    //
-    // this.orientationchangeEvent();
+
+    this.resizeEvent();
+
+    this.orientationchangeEvent();
 
     // this.transitionendEvent();
   }
@@ -640,22 +641,22 @@ console.log('softLoop')
     });
   }
   //
-  // resizeEvent() {
-  //   window.addEventListener('resize', () => {
-  //     if (window.innerWidth > 900) {
-  //       window.location.reload();
-  //     }
-  //   });
-  // }
-  //
-  // orientationchangeEvent() {
-  //   window.addEventListener('orientationchange', () => {
-  //     scrollTo(0, 0);
-  //     setTimeout(() => {
-  //       window.location.reload();
-  //     }, 500);
-  //   });
-  // }
+  resizeEvent() {
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 900) {
+        window.location.reload();
+      }
+    });
+  }
+
+  orientationchangeEvent() {
+    window.addEventListener('orientationchange', () => {
+      scrollTo(0, 0);
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    });
+  }
 
   // transitionendEvent() {
   //   document.querySelector('.loading').addEventListener('transitionend', (e) => {
