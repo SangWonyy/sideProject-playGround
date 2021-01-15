@@ -255,8 +255,8 @@ export class PlaygroundMainPage implements OnInit {
   playAnimation() {
     const objs = this.sceneInfo[this.currentScene].objs;
     const values = this.sceneInfo[this.currentScene].values;
-    const canvas = objs.canvas as HTMLCanvasElement;
-    const context = canvas.getContext('2d');
+    let canvas;
+    let context;
     const messageA = objs.messageA as HTMLElement;
     const messageB = objs.messageB as HTMLElement;
     const messageC = objs.messageC as HTMLElement;
@@ -267,7 +267,10 @@ export class PlaygroundMainPage implements OnInit {
     const currentYOffset = this.yOffset - this.prevScrollHeight;
     const scrollHeight = this.sceneInfo[this.currentScene].scrollHeight;
     const scrollRatio = currentYOffset / scrollHeight;
-
+    if(this.currentScene !== 1) {
+      canvas = objs.canvas as HTMLCanvasElement;
+      context = canvas.getContext('2d');
+    }
     switch (this.currentScene) {
       case 0:
         canvas.style.opacity = this.calcValues(values.canvas_opacity, currentYOffset);
@@ -379,7 +382,7 @@ export class PlaygroundMainPage implements OnInit {
           canvas.style.transform = `scale(${canvasScaleRatio})`;
           context.fillStyle = 'white';
           const img = new Image();
-          img.src = 'assets/main/image/blend-image-1.jpg';
+          img.src = `assets/main/video/002/IMG_7027.JPG`;
           img.onload = (() => {
             context.drawImage(img, 0, 0);
           })
@@ -413,6 +416,7 @@ export class PlaygroundMainPage implements OnInit {
         break;
 
       case 3:
+
         let step = 0;
         // 가로/세로 모두 꽉 차게 하기 위해 여기서 세팅(계산 필요)
         const widthRatio = window.innerWidth / objs.canvas.width;
@@ -538,7 +542,11 @@ export class PlaygroundMainPage implements OnInit {
   scrollLoop() {
     this.enterNewScene = false;
     this.prevScrollHeight = 0;
-    const currentContent = document.querySelector(`#show-scene-${this.currentScene}`);
+    let currentContent = document.querySelector(`#show-scene-${this.currentScene}`);
+    if (!currentContent) {
+      document.querySelector(`.mainContent`).setAttribute('id', `show-scene-${this.currentScene}`)
+      currentContent = document.querySelector(`#show-scene-${this.currentScene}`);
+    }
     for (let i = 0; i < this.currentScene; i++) {
       this.prevScrollHeight += this.sceneInfo[i].scrollHeight;
     }
@@ -546,12 +554,12 @@ export class PlaygroundMainPage implements OnInit {
     if (this.delayedYOffset < this.prevScrollHeight + this.sceneInfo[this.currentScene].scrollHeight) {
       currentContent.classList.remove('scroll-effect-end');
     }
-
     if (this.delayedYOffset > this.prevScrollHeight + this.sceneInfo[this.currentScene].scrollHeight) {
       this.enterNewScene = true;
       if (this.currentScene === this.sceneInfo.length - 1) {
         currentContent.classList.add('scroll-effect-end');
       }
+
       if (this.currentScene < this.sceneInfo.length - 1) {
         this.currentScene++;
       }
@@ -562,7 +570,7 @@ export class PlaygroundMainPage implements OnInit {
       this.enterNewScene = true;
       // 브라우저 바운스 효과로 인해 마이너스가 되는 것을 방지(모바일)
       if (this.currentScene === 0) return;
-      this.currentScene--;
+      // this.currentScene--;
       currentContent.setAttribute('id', `show-scene-${this.currentScene}`);
     }
 
@@ -583,12 +591,12 @@ export class PlaygroundMainPage implements OnInit {
         const objs = this.sceneInfo[this.currentScene].objs;
         const values = this.sceneInfo[this.currentScene].values;
         let sequence = Math.round(this.calcValues(values.imageSequence, currentYOffset));
-        if(this.currentScene === 0) {
+        if(this.currentScene === 0 && (6726 + sequence) <= 7025 && (6726 + sequence) >= 6762) {
           img.src = `assets/main/video/001/IMG_${6726 + sequence}.JPG`;
-        } else if (this.currentScene === 2) {
+        } else if (this.currentScene === 2 && (7027 + sequence) <= 7986 && (7027 + sequence) >= 7027) {
           img.src = `assets/main/video/002/IMG_${7027 + sequence}.JPG`;
         }
-        const context = this.sceneInfo[0].objs.canvas.getContext('2d');
+        const context = this.sceneInfo[this.currentScene].objs.canvas.getContext('2d');
         img.onload = (() => {
           context.drawImage(img, 0, 0);
         })
@@ -611,7 +619,9 @@ export class PlaygroundMainPage implements OnInit {
     }
 
     if (Math.abs(this.yOffset - this.delayedYOffset) > 1) {
-      this.requestAni();
+      if(this.currentScene === 0 || this.currentScene === 2) {
+        this.requestAni();
+      }
     }
   }
 
@@ -619,7 +629,21 @@ export class PlaygroundMainPage implements OnInit {
     this.yOffset = scrollTop;
     this.scrollLoop();
     this.checkMenu();
-    this.softLoop();
+    if(this.currentScene !== 1) {
+      this.softLoop();
+    } else {
+      let totalScrollHeight = 0;
+      for (let i = 0; i < this.sceneInfo.length; i++) {
+        totalScrollHeight += this.sceneInfo[i].scrollHeight;
+        if (totalScrollHeight >= this.yOffset) {
+          if(i === 2) {
+            this.delayedYOffset = this.delayedYOffset + (this.yOffset - this.delayedYOffset) * this.acc;
+          }
+          this.currentScene = i;
+          break;
+        }
+      }
+    }
   }
 
   requestAni() {
