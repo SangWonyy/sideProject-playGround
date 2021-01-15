@@ -270,9 +270,6 @@ export class PlaygroundMainPage implements OnInit {
 
     switch (this.currentScene) {
       case 0:
-        // console.log('0 play');
-        // let sequence = Math.round(calcValues(values.imageSequence, currentYOffset));
-        // objs.context.drawImage(objs.videoImages[sequence], 0, 0);
         canvas.style.opacity = this.calcValues(values.canvas_opacity, currentYOffset);
 
         if (scrollRatio <= 0.22) {
@@ -318,7 +315,6 @@ export class PlaygroundMainPage implements OnInit {
         break;
 
       case 2:
-        // console.log('2 play');
         // let sequence2 = Math.round(calcValues(values.imageSequence, currentYOffset));
         // objs.context.drawImage(objs.videoImages[sequence2], 0, 0);
 
@@ -417,7 +413,6 @@ export class PlaygroundMainPage implements OnInit {
         break;
 
       case 3:
-        // console.log('3 play');
         let step = 0;
         // 가로/세로 모두 꽉 차게 하기 위해 여기서 세팅(계산 필요)
         const widthRatio = window.innerWidth / objs.canvas.width;
@@ -480,11 +475,9 @@ export class PlaygroundMainPage implements OnInit {
         // @ts-ignore
         if (scrollRatio < values.rect1X[2].end) {
           step = 1;
-          // console.log('캔버스 닿기 전');
           objs.canvas.classList.remove('sticky');
         } else {
           step = 2;
-          // console.log('캔버스 닿은 후');
           // 이미지 블렌드
           // values.blendHeight: [ 0, 0, { start: 0, end: 0 } ]
           values.blendHeight[0] = 0;
@@ -590,8 +583,6 @@ export class PlaygroundMainPage implements OnInit {
         const objs = this.sceneInfo[this.currentScene].objs;
         const values = this.sceneInfo[this.currentScene].values;
         let sequence = Math.round(this.calcValues(values.imageSequence, currentYOffset));
-        console.log(sequence);
-        console.log(objs.videoImages[sequence])
         if(this.currentScene === 0) {
           img.src = `assets/main/video/001/IMG_${6726 + sequence}.JPG`;
         } else if (this.currentScene === 2) {
