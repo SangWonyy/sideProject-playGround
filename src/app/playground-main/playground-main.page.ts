@@ -134,7 +134,7 @@ export class PlaygroundMainPage implements OnInit {
     this.setLayout(); // 중간에 새로고침 시, 콘텐츠 양에 따라 높이 계산에 오차가 발생하는 경우를 방지하기 위해 before-load 클래스 제거 전에도 확실하게 높이를 세팅하도록 한번 더 실행
 
     const img = new Image();
-    img.src = `assets/main/video/001/IMG_6726.JPG`;
+    img.src = `assets/main/video/001/IMG_ (1).jpg`;
     const context = this.sceneInfo[0].objs.canvas.getContext('2d');
     img.onload = (() => {
       context.drawImage(img, 0, 0);
@@ -591,8 +591,8 @@ export class PlaygroundMainPage implements OnInit {
         const objs = this.sceneInfo[this.currentScene].objs;
         const values = this.sceneInfo[this.currentScene].values;
         let sequence = Math.round(this.calcValues(values.imageSequence, currentYOffset));
-        if(this.currentScene === 0 && (6726 + sequence) <= 7025 && (6726 + sequence) >= 6762) {
-          img.src = `assets/main/video/001/IMG_${6726 + sequence}.JPG`;
+        if(this.currentScene === 0 && (1 + sequence) <= 300 && (1 + sequence) >= 1) {
+          img.src = `assets/main/video/001/IMG_ (${1 + sequence}).jpg`;
         } else if (this.currentScene === 2 && (7027 + sequence) <= 7986 && (7027 + sequence) >= 7027) {
           img.src = `assets/main/video/002/IMG_${7027 + sequence}.JPG`;
         }
@@ -608,7 +608,7 @@ export class PlaygroundMainPage implements OnInit {
     if (this.delayedYOffset < 1) {
       this.scrollLoop();
       canvas.style.opacity = "1";
-      img.src = `assets/main/video/001/IMG_6726.JPG`;
+      img.src = `assets/main/video/001/IMG_ (1).jpg`;
       img.onload = (() => {
         context.drawImage(img, 0, 0);
       });
