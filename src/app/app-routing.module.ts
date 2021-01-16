@@ -13,9 +13,9 @@ const routes: Routes = [
     loadChildren: () => import('./playground-main/playground-main.module').then( m => m.PlaygroundMainPageModule)
   },
   {
-    path: 'img-upload',
+    path: 'img-block',
     data: {menuType: 'upload'},
-    loadChildren: () => import('./img-upload/img-upload.module').then(m => m.ImgUploadPageModule)
+    loadChildren: () => import('./img-upload/img-block.module').then(m => m.ImgBlockPageModule)
   },
   {
     path: 'img-edit',

@@ -7,13 +7,13 @@ import {ModelImgResourceBasic} from '../service/img/img.resource.service.model';
 import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
-    selector: 'app-img-upload',
-    templateUrl: './img-upload.page.html',
-    styleUrls: ['./img-upload.page.scss'],
+    selector: 'app-img-block',
+    templateUrl: './img-block.page.html',
+    styleUrls: ['./img-block.page.scss'],
 })
 
 
-export class ImgUploadPage implements OnInit {
+export class ImgBlockPage implements OnInit {
     public thumbnail;
     public imgList = [];
 

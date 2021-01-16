@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {ImgUploadPage} from './img-upload.page';
+import {ImgBlockPage} from "./img-block.page";
 
 const routes: Routes = [
   {
     path: '',
-    component: ImgUploadPage
+    component: ImgBlockPage
   }
 ];
 
@@ -13,4 +13,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ImgUploadPageRoutingModule {}
+export class ImgBlockPageRoutingModule {}
