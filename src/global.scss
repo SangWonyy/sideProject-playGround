@@ -77,11 +77,11 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-img {
-  max-width: 100%;
-  height: auto;
-  border: 0;
-}
+//img {
+//  max-width: 100%;
+//  height: auto;
+//  border: 0;
+//}
 button {
   border: 0;
   background: transparent;
@@ -101,7 +101,6 @@ html {
 }
 body {
   overflow-x: hidden;
-  color: rgb(29, 29, 31);
   letter-spacing: -0.05em;
   background: black;
 }

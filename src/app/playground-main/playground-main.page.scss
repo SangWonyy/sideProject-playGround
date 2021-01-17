@@ -1,7 +1,11 @@
 ion-item {
-  --padding-start: 0px;
+  scroll-section-1padding-start: 0px;
 
 
+}
+
+ion-content {
+  --ion-background-color: #010101;
 }
 
 //
@@ -35,7 +39,7 @@ p {
   line-height: 1.6;
 }
 a {
-  color: rgb(29, 29, 31);
+  color: white;
   text-decoration: none;
 }
 
@@ -102,13 +106,20 @@ body.before-load {
   position: relative;
   padding-top: 50vh;
 }
+.product-name {
+  font-family: 'Pacifico', cursive;
+}
 #scroll-section-1 h1 {
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'Pacifico', cursive;
   position: relative;
   top: -10vh;
   z-index: 5;
   font-size: 4rem;
   text-align: center;
+  color: #FF9F59;
+}
+.product-name {
+  color: #FF9F59;
 }
 .main-message {
   font-family: 'Noto Sans KR', sans-serif;

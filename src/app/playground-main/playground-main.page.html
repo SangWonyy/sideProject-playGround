@@ -1,12 +1,13 @@
-<ion-content [id] = "'show-scene-' + currentScene" [scrollEvents]="true" (ionScroll)="scrollEvent($event.detail.scrollTop)" class="mainContent">
-<!--  <div class="loading">-->
-<!--    <svg class="loading-circle">-->
-<!--      <circle cx="50%" cy="50%" r="25"></circle>-->
-<!--    </svg>-->
-<!--  </div>-->
+<ion-content [id] = "'show-scene-' + currentScene" [scrollEvents]="true" (ionScroll)="scrollEvent($event.detail.scrollTop)" class="mainContent" >
+  <ng-container style="background-color: black">
+    <!--  <div class="loading">-->
+    <!--    <svg class="loading-circle">-->
+    <!--      <circle cx="50%" cy="50%" r="25"></circle>-->
+    <!--    </svg>-->
+    <!--  </div>-->
     <nav class="global-nav">
       <div class="global-nav-links">
-        <a class="global-nav-item" (click)="app.go('img-block')">Stacking Blocks</a>
+        <a class="global-nav-item" (click)="app.go('img-block')" style="color: white">Stacking Blocks</a>
         <a href="#" class="global-nav-item">준비중</a>
         <a href="#" class="global-nav-item">준비중</a>
         <a href="#" class="global-nav-item">준비중</a>
@@ -18,7 +19,7 @@
       </div>
     </nav>
     <div class="scroll-section" id="scroll-section-1">
-      <h1>Playground</h1>
+      <h1>Playground.</h1>
       <div class="sticky-elem sticky-elem-canvas">
         <canvas id="video-canvas-0" width="1920" height="1080"></canvas>
       </div>
@@ -78,5 +79,7 @@
     <footer class="footer">
       2020, 1분코딩
     </footer>
+  </ng-container>
+
 </ion-content>
 
