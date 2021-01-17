@@ -109,7 +109,7 @@ body.before-load {
 .product-name {
   font-family: 'Pacifico', cursive;
 }
-#scroll-section-1 h1 {
+#scroll-section-0 h1 {
   font-family: 'Pacifico', cursive;
   position: relative;
   top: -10vh;
@@ -222,10 +222,7 @@ body.before-load {
   left: 50%;
 }
 
-#show-scene-0 #scroll-section-1 .sticky-elem,
-#show-scene-1 #scroll-section-1-5 .sticky-elem,
-#show-scene-2 #scroll-section-2 .sticky-elem,
-#show-scene-3 #scroll-section-3 .sticky-elem {
+#show-scene-0 #scroll-section-0 .sticky-elem {
   display: block;
   will-change: transform, opacity;
 }
@@ -292,7 +289,7 @@ body.before-load {
 }
 
 @media (min-width: 1024px) {
-  #scroll-section-1 h1 {
+  #scroll-section-0 h1 {
     font-size: 9vw;
   }
   .main-message {
