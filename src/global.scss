@@ -25,18 +25,6 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-ion-content {
-  .backgroundFrame{
-    height: 100%;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    background-color: rgba( 153, 153, 153, 0.5 );
-  }
-
-}
-.backgroundImg {
-  --background: #fff url('./assets/background/background.jpg') no-repeat center center / cover;
-}
 html {
   font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', NanumGothic, 'Malgun Gothic', sans-serif;
   line-height: 1.2;

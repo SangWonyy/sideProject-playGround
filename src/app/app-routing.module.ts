@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: 'img-block',
     data: {menuType: 'upload'},
-    loadChildren: () => import('./img-upload/img-block.module').then(m => m.ImgBlockPageModule)
+    loadChildren: () => import('./img-block/img-block.module').then(m => m.ImgBlockPageModule)
   },
   {
     path: 'img-edit',

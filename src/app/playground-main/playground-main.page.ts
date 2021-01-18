@@ -112,7 +112,7 @@ export class PlaygroundMainPage implements OnInit {
 
   }
   async goMain() {
-    await this.app.go('img-upload');
+    await this.app.go('img-block');
   }
 
   checkMenu() {
