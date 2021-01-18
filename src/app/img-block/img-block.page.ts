@@ -5,6 +5,7 @@ import {fabric} from 'fabric';
 import {ImgResourceService} from '../service/img/img.resource.service';
 import {ModelImgResourceBasic} from '../service/img/img.resource.service.model';
 import {DomSanitizer} from '@angular/platform-browser';
+import {AppService} from "../service/app.service";
 
 @Component({
     selector: 'app-img-block',
@@ -17,20 +18,13 @@ export class ImgBlockPage implements OnInit {
     public thumbnail;
     public imgList = [];
 
-    constructor(public userService: UserService, private fileService: FileService, private imgResourceService: ImgResourceService, public domSanitizer: DomSanitizer) {
+    constructor(public app: AppService, private fileService: FileService, private imgResourceService: ImgResourceService, public domSanitizer: DomSanitizer) {
     }
 
     ngOnInit() {
     }
 
     async ionViewWillEnter() {
-        try {
-            const {data} = await this.imgResourceService.getImgSource().toPromise();
-            this.imgList = data;
-        } catch (e) {
-            console.error(e);
-        }
-
     }
 
     file_input_rest(event) {

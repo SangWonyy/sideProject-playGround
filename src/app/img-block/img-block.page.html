@@ -1,27 +1,16 @@
-<app-header></app-header>
-<ion-content class="backgroundImg">
-    <div class="container backgroundFrame" >
+<ion-content >
+    <section>
+        <h1>Hello Animation World.</h1>
+    </section>
+    <ion-button class="back-button" (click)="app.go('playground-main')"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
+    <div class="upload-button" >
         <ion-button (click)="filelistInput.click()"> <ion-icon name="cloud-upload-outline"></ion-icon></ion-button>
-        <div class="row py-3 px-2">
-            <div class="col-lg-3">
-                <ion-card>
-                    <ion-card-content *ngFor="let img of imgList">
-                        <div style="text-align: right">
-                            <button style="background-color: rgba( 250, 250, 250, 0);padding-right: 0px;" (click)="deleteImg(img.imgId)">
-                                <ion-icon name="close-circle-outline" size="large"></ion-icon>
-                            </button>
-                        </div>
-                        <img [src]=domSanitizer.bypassSecurityTrustUrl(img.base64)>
-                    </ion-card-content>
-                    <input #filelistInput
-                           (change)="file_upload($event)" accept="image/*"
-                           (click)="file_input_rest($event)"
-                           class="invisible"
-                           multiple
-                           style="position: absolute;"
-                           type="file">
-                </ion-card>
-            </div>
-        </div>
+        <input #filelistInput
+               (change)="file_upload($event)" accept="image/*"
+               (click)="file_input_rest($event)"
+               class="invisible"
+               multiple
+               style="position: absolute;"
+               type="file">
     </div>
 </ion-content>
