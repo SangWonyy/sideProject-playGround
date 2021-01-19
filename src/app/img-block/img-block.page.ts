@@ -25,6 +25,12 @@ export class ImgBlockPage implements OnInit {
     }
 
     async ionViewWillEnter() {
+        this.drawBlock();
+    }
+
+    drawBlock() {
+        const banner = document.querySelector('.banner');
+
     }
 
     file_input_rest(event) {
