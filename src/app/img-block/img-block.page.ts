@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {UserService} from '../service/user/user.resource.service';
 import {FileService} from '../service/file.service';
 import {fabric} from 'fabric';
@@ -6,11 +6,13 @@ import {ImgResourceService} from '../service/img/img.resource.service';
 import {ModelImgResourceBasic} from '../service/img/img.resource.service.model';
 import {DomSanitizer} from '@angular/platform-browser';
 import {AppService} from "../service/app.service";
+import {Platform} from "@ionic/angular";
 
 @Component({
     selector: 'app-img-block',
     templateUrl: './img-block.page.html',
     styleUrls: ['./img-block.page.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 
 
@@ -18,7 +20,7 @@ export class ImgBlockPage implements OnInit {
     public thumbnail;
     public imgList = [];
 
-    constructor(public app: AppService, private fileService: FileService, private imgResourceService: ImgResourceService, public domSanitizer: DomSanitizer) {
+    constructor(public app: AppService, private fileService: FileService, private imgResourceService: ImgResourceService, public domSanitizer: DomSanitizer, public platform: Platform) {
     }
 
     ngOnInit() {
@@ -31,6 +33,13 @@ export class ImgBlockPage implements OnInit {
     drawBlock() {
         const banner = document.querySelector('.banner');
 
+        // this.platform.width() / (this.platform.width() * 0.05) = 20
+        // this.platform.height() / (this.platform.height() * 0.05) = 20
+        for(let i = 0; i < 20 * 20; i++) {
+            banner.innerHTML += "<div class='blocks'></div>";
+            banner.children[i].setAttribute('style', `animationDelay: ${i * 0.05}s`);
+
+        }
     }
 
     file_input_rest(event) {
