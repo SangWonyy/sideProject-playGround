@@ -37,7 +37,7 @@ export class ImgBlockPage implements OnInit {
         // this.platform.height() / (this.platform.height() * 0.05) = 20
         for(let i = 0; i < 20 * 20; i++) {
             banner.innerHTML += "<div class='blocks'></div>";
-            banner.children[i].setAttribute('style', `animationDelay: ${i * 0.05}s`);
+            banner.children[i].setAttribute('style', `animation-delay: ${i * 0.05}s`);
 
         }
     }
