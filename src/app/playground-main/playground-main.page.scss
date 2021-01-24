@@ -148,13 +148,13 @@ a {
   margin: 0 auto;
   padding: 0 1rem;
   font-size: 1.2rem;
-  color: #888;
+  color: white;
 }
 .description strong {
   float: left;
   margin-right: 0.2em;
   font-size: 3rem;
-  color: rgb(29, 29, 31);
+  color: white;
 }
 .sticky-elem.desc-message {
   width: 45%;
@@ -192,12 +192,15 @@ a {
   color: #888;
 }
 .footer {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 1.5rem;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 7rem;
   color: white;
-  background: darkorange;
+  background: #FF9F59;
 }
 .sticky-elem {
   display: none;

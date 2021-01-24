@@ -62,7 +62,6 @@ export class PlaygroundMainPage implements OnInit {
       }
     ];
     this.setLayout(); // 중간에 새로고침 시, 콘텐츠 양에 따라 높이 계산에 오차가 발생하는 경우를 방지하기 위해 before-load 클래스 제거 전에도 확실하게 높이를 세팅하도록 한번 더 실행
-
     const img = new Image();
     img.src = `assets/main/video/001/IMG_ (1).jpg`;
     const context = this.sceneInfo[0].objs.canvas.getContext('2d');
@@ -117,7 +116,7 @@ export class PlaygroundMainPage implements OnInit {
   }
 
   ionViewDidEnter() {
-
+    this.checkMenu();
   }
 
   drawCanvasImg(self) {
@@ -134,16 +133,21 @@ export class PlaygroundMainPage implements OnInit {
       })
     }
   }
+
   async goMain() {
     await this.app.go('img-block');
   }
 
   checkMenu() {
     const currentContent = document.querySelector(`#show-scene-${this.currentScene}`);
+    const localContent = document.querySelector(`.local-nav`);
+
     if (this.yOffset > 44) {
       currentContent.classList.add('local-nav-sticky');
+      localContent.setAttribute('style', 'display: block');
     } else {
       currentContent.classList.remove('local-nav-sticky');
+      localContent.setAttribute('style', 'display: none');
     }
   }
 
