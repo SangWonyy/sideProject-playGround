@@ -3,7 +3,9 @@ ion-item {
 
 
 }
-
+ion-content {
+  --ion-color-primary: #FF9F59;
+}
 //
 ::ng-deep.mat-menu-content {
   padding-top: 0 !important;
