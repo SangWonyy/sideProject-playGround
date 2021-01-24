@@ -26,7 +26,7 @@ export class PlaygroundMainPage implements OnInit {
       {
         // 0
         type: 'sticky',
-        heightNum: 5, // 브라우저 높이의 5배로 scrollHeight 세팅
+        heightNum: 3, // 브라우저 높이의 5배로 scrollHeight 세팅
         scrollHeight: 0,
         objs: {
           container: document.querySelector('#scroll-section-0') as HTMLElement,
@@ -165,8 +165,6 @@ export class PlaygroundMainPage implements OnInit {
     }
 
     this.yOffset = window.pageYOffset;
-
-    const heightRatio = window.innerHeight / 1080;
   }
 
   calcValues(values, currentYOffset) {
