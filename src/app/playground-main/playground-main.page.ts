@@ -1,6 +1,8 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {AppService} from "../service/app.service";
 import {Platform} from "@ionic/angular";
+import {Subject, Subscription} from "rxjs";
+import {throttle, throttleTime} from "rxjs/operators";
 
 @Component({
   selector: 'app-playground-main',
@@ -17,6 +19,7 @@ export class PlaygroundMainPage implements OnInit {
   public rafId;
   public rafState = true;
   public sceneInfo;
+  public resize$ = new Subject();
   @HostListener('window:load')
   playMain() {
     this.sceneInfo = [
@@ -89,9 +92,7 @@ export class PlaygroundMainPage implements OnInit {
 
   @HostListener('window:resize')
   resizeEvent() {
-    if (window.innerWidth > 900) {
-      window.location.reload();
-    }
+    this.resize$.next();
   }
 
   // @HostListener('window:orientationchange')
@@ -106,12 +107,32 @@ export class PlaygroundMainPage implements OnInit {
   }
 
   ngOnInit() {
-
+    this.resize$.pipe(
+        throttleTime( 500)
+    ).subscribe(
+        (result) => {
+          this.drawCanvasImg(this);
+        }
+    )
   }
 
   ionViewDidEnter() {
 
+  }
 
+  drawCanvasImg(self) {
+    const img = new Image();
+    const context = self.sceneInfo[0].objs.canvas.getContext('2d');
+    this.sceneInfo[self.currentScene].objs.canvas.width = self.platform.width();
+    const currentYOffset = self.delayedYOffset - self.prevScrollHeight;
+    const values = self.sceneInfo[self.currentScene].values;
+    let sequence = Math.round(self.calcValues(values.imageSequence, currentYOffset));
+    if(this.currentScene === 0 && (1 + sequence) <= 300 && (1 + sequence) >= 1) {
+      img.src = `assets/main/video/001/IMG_ (${1 + sequence}).jpg`;
+      img.onload = (() => {
+        context.drawImage(img, 0, 0, self.platform.width(), self.platform.height());
+      })
+    }
   }
   async goMain() {
     await this.app.go('img-block');
