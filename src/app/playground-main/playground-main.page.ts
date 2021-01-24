@@ -63,8 +63,10 @@ export class PlaygroundMainPage implements OnInit {
     const img = new Image();
     img.src = `assets/main/video/001/IMG_ (1).jpg`;
     const context = this.sceneInfo[0].objs.canvas.getContext('2d');
+    this.sceneInfo[this.currentScene].objs.canvas.width = this.platform.width();
+
     img.onload = (() => {
-      context.drawImage(img, 0, 0);
+      context.drawImage(img, 0, 0, this.platform.width(), this.platform.height());
     })
 
     // 중간에서 새로고침 했을 경우 자동 스크롤로 제대로 그려주기
@@ -140,7 +142,6 @@ export class PlaygroundMainPage implements OnInit {
     this.yOffset = window.pageYOffset;
 
     const heightRatio = window.innerHeight / 1080;
-    this.sceneInfo[0].objs.canvas.style.transform = `translate3d(-50%, -50%, 0) scale(${heightRatio})`;
   }
 
   calcValues(values, currentYOffset) {
@@ -282,9 +283,8 @@ export class PlaygroundMainPage implements OnInit {
         let sequence = Math.round(this.calcValues(values.imageSequence, currentYOffset));
         if(this.currentScene === 0 && (1 + sequence) <= 300 && (1 + sequence) >= 1) {
           img.src = `assets/main/video/001/IMG_ (${1 + sequence}).jpg`;
-          const context = this.sceneInfo[this.currentScene].objs.canvas.getContext('2d');
           img.onload = (() => {
-            context.drawImage(img, 0, 0);
+            context.drawImage(img, 0, 0, this.platform.width(), this.platform.height());
           })
         }
       }
@@ -297,8 +297,9 @@ export class PlaygroundMainPage implements OnInit {
       canvas.style.opacity = "1";
       img.src = `assets/main/video/001/IMG_ (1).jpg`;
       img.onload = (() => {
-        context.drawImage(img, 0, 0);
-      });
+        context.drawImage(img, 0, 0, this.platform.width(), this.platform.height());
+      })
+
     }
     // 페이지 맨 아래로 갈 경우: 마지막 섹션은 스크롤 계산으로 위치 및 크기를 결정해야할 요소들이 많아서 1픽셀을 움직여주는 것으로 해결
     if ((this.platform.height() - window.innerHeight) - this.delayedYOffset < 1) {

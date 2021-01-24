@@ -43,13 +43,13 @@ a {
   text-decoration: none;
 }
 
-body.before-load {
-  overflow: hidden;
-}
-.containerBox {
-  /* iPhone 가로 스크롤 방지 */
-  overflow-x: hidden;
-}
+//body.before-load {
+//  overflow: hidden;
+//}
+//.containerBox {
+//  /* iPhone 가로 스크롤 방지 */
+//  overflow-x: hidden;
+//}
 .global-nav {
   position: absolute;
   top: 0;
@@ -104,7 +104,6 @@ body.before-load {
 }
 .scroll-section {
   position: relative;
-  padding-top: 50vh;
 }
 .product-name {
   font-family: 'Pacifico', cursive;
@@ -112,7 +111,7 @@ body.before-load {
 #scroll-section-0 h1 {
   font-family: 'Pacifico', cursive;
   position: relative;
-  top: -10vh;
+  top: 45vh;
   z-index: 5;
   font-size: 4rem;
   text-align: center;
@@ -203,7 +202,8 @@ body.before-load {
 }
 .sticky-elem {
   display: none;
-  position: fixed;
+  position: sticky;
+  top: 0;
   left: 0;
   width: 100%;
 }
@@ -213,13 +213,13 @@ body.before-load {
   display: none !important;
 }
 .sticky-elem-canvas {
-  top: 0;
   height: 100%;
+  text-align: center;
 }
 .sticky-elem-canvas canvas {
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  position: sticky;
+  top: 0;
+  left: 0;
 }
 
 #show-scene-0 #scroll-section-0 .sticky-elem {
