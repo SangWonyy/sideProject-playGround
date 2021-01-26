@@ -7,7 +7,7 @@ import {ModelImgResourceBasic} from '../service/img/img.resource.service.model';
 import {DomSanitizer} from '@angular/platform-browser';
 import {AppService} from "../service/app.service";
 import {Platform} from "@ionic/angular";
-
+const createKeyframe = require('create-keyframe')
 @Component({
     selector: 'app-img-block',
     templateUrl: './img-block.page.html',
@@ -24,6 +24,7 @@ export class ImgBlockPage implements OnInit {
     }
 
     ngOnInit() {
+
     }
 
     async ionViewWillEnter() {
@@ -31,14 +32,21 @@ export class ImgBlockPage implements OnInit {
     }
 
     drawBlock() {
-        const banner = document.querySelector('.banner');
+        const fadeOutColor = createKeyframe({
+            0: {
+                color: 'rgba(0, 0, 0, 1)'
+            },
+            50: {
+                color: 'rgba(0, 0, 0, .25)',
+                fontSize: '24px',
+                'background-color': 'black'
+            },
+            100: {
+                color: 'rgba(0, 0, 0, 0)'
+            }
+        })
 
-        // this.platform.width() / (this.platform.width() * 0.05) = 20
-        // this.platform.height() / (this.platform.height() * 0.05) = 20
-        for(let i = 0; i < 20 * 20; i++) {
-            banner.innerHTML += "<div class='blocks'></div>";
-            banner.children[i].setAttribute('style', `animation-delay: ${i * 0.05}s`);
-        }
+        console.log(fadeOutColor);
     }
 
     file_input_rest(event) {
