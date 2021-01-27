@@ -44,6 +44,12 @@ ion-fab-button {
   top: 1%;
 }
 
+.upload-comments {
+  position: absolute;
+  font-family: 'Londrina Solid', cursive;
+  font-size: 1.4rem;
+}
+
 section {
   position: relative;
   width: 100%;
@@ -78,4 +84,3 @@ section h1 {
 
   animation: animate 0.55s ease-in-out forwards;
 }
-

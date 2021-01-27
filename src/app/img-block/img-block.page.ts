@@ -28,7 +28,8 @@ export class ImgBlockPage implements OnInit {
     }
 
     async ionViewWillEnter() {
-
+        this.insertAnimation("../../assets/background/background.jpg");
+        this.drawBlock();
     }
 
     drawBlock() {

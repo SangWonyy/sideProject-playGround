@@ -6,14 +6,24 @@
         </div>
     </section>
     <ion-button class="back-button" (click)="app.go('playground-main')"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
-    <div class="upload-button" >
-        <ion-button (click)="filelistInput.click()"> <ion-icon name="cloud-upload-outline"></ion-icon></ion-button>
-        <input #filelistInput
-               (change)="imgUpload($event)" accept="image/*"
-               (click)="file_input_rest($event)"
-               class="invisible"
-               multiple
-               style="position: absolute;"
-               type="file">
+    <div class="upload-button">
+        <div style="display: flex;">
+            <div style="transform: rotate(-17deg)" class="pt-3 pr-3">
+                <ion-icon  src="../../assets/icon/3d-arrow.svg" style="font-size: 60px"></ion-icon>
+            </div>
+            <ion-button (click)="filelistInput.click()"> <ion-icon name="cloud-upload-outline"></ion-icon></ion-button>
+            <input #filelistInput
+                   (change)="imgUpload($event)" accept="image/*"
+                   (click)="file_input_rest($event)"
+                   class="invisible"
+                   multiple
+                   style="position: absolute;"
+                   type="file">
+        </div>
+        <div class="upload-comments">
+            Please, Try uploading any file.
+        </div>
+
     </div>
+
 </ion-content>
