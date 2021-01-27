@@ -9,7 +9,7 @@
     <div class="upload-button" >
         <ion-button (click)="filelistInput.click()"> <ion-icon name="cloud-upload-outline"></ion-icon></ion-button>
         <input #filelistInput
-               (change)="file_upload($event)" accept="image/*"
+               (change)="imgUpload($event)" accept="image/*"
                (click)="file_input_rest($event)"
                class="invisible"
                multiple
