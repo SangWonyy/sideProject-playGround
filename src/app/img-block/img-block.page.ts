@@ -1,8 +1,6 @@
-import {Component, Inject, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {FileService} from '../service/file.service';
-import {fabric} from 'fabric';
 import {ImgResourceService} from '../service/img/img.resource.service';
-import {ModelImgResourceBasic} from '../service/img/img.resource.service.model';
 import {DomSanitizer} from '@angular/platform-browser';
 import {AppService} from "../service/app.service";
 import {Platform} from "@ionic/angular";
@@ -19,6 +17,7 @@ const insertCss = require('insert-css');
 export class ImgBlockPage implements OnInit {
     public thumbnail;
     public imgList = [];
+    public isMoreLoad = true;
 
     constructor(public app: AppService, private fileService: FileService, private imgResourceService: ImgResourceService, public domSanitizer: DomSanitizer, public platform: Platform) {
     }
@@ -29,6 +28,7 @@ export class ImgBlockPage implements OnInit {
 
     async ionViewWillEnter() {
         this.insertAnimation("../../assets/background/background.jpg");
+        this.isMoreLoad = false;
         this.drawBlock();
     }
 
@@ -45,7 +45,6 @@ export class ImgBlockPage implements OnInit {
     }
 
     insertAnimation(imgUrl) {
-        console.log('1 : insertAnimation', imgUrl);
         const insertBackground = createKeyframe({
             0: {
                 opacity: 0,
@@ -66,9 +65,12 @@ export class ImgBlockPage implements OnInit {
     }
 
     async imgUpload(event) {
+        this.isMoreLoad = true;
+        document.querySelectorAll('.blocks').forEach((element) => element.parentNode.removeChild(element));
         const imgUrl = await this.getImgUrl(event);
 
         this.insertAnimation(imgUrl);
+        this.isMoreLoad = false;
         this.drawBlock();
     }
 

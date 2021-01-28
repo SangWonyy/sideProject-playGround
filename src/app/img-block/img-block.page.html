@@ -1,6 +1,9 @@
 <ion-content >
     <section>
-        <h1>Hello Animation World.</h1>
+        <h1 *ngIf="!isMoreLoad">Hello Animation World.</h1>
+        <div *ngIf="isMoreLoad" class="spinner-grow text-warning spin" role="status">
+            <span class="visually-hidden"></span>
+        </div>
         <div class="banner">
 
         </div>
