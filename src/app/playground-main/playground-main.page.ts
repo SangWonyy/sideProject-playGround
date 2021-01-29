@@ -34,9 +34,6 @@ export class PlaygroundMainPage implements OnInit {
           messageB: document.querySelector('#scroll-section-0 .main-message.b') as HTMLElement,
           messageC: document.querySelector('#scroll-section-0 .main-message.c') as HTMLElement,
           messageD: document.querySelector('#scroll-section-0 .main-message.d') as HTMLElement,
-          canvas: document.querySelector('#video-canvas-0') as HTMLCanvasElement,
-          // context: document.querySelector('#video-canvas-0').getContext('2d'),
-          videoImages: []
         },
         values: {
           videoImageCount: 300,
