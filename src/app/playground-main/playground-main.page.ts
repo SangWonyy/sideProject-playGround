@@ -62,45 +62,13 @@ export class PlaygroundMainPage implements OnInit {
       }
     ];
     this.setLayout(); // 중간에 새로고침 시, 콘텐츠 양에 따라 높이 계산에 오차가 발생하는 경우를 방지하기 위해 before-load 클래스 제거 전에도 확실하게 높이를 세팅하도록 한번 더 실행
-    const img = new Image();
-    img.src = `assets/main/video/001/IMG_ (1).jpg`;
-    const context = this.sceneInfo[0].objs.canvas.getContext('2d');
-    this.sceneInfo[this.currentScene].objs.canvas.width = this.platform.width();
-
-    img.onload = (() => {
-      context.drawImage(img, 0, 0, this.platform.width(), this.platform.height());
-    })
-
-    // 중간에서 새로고침 했을 경우 자동 스크롤로 제대로 그려주기
-    let tempYOffset = this.yOffset;
-    let tempScrollCount = 0;
-    if (tempYOffset > 0) {
-      let siId = setInterval(() => {
-        scrollTo(0, tempYOffset);
-        tempYOffset += 5;
-
-        if (tempScrollCount > 20) {
-          clearInterval(siId);
-        }
-        tempScrollCount++;
-      }, 20);
-    }
-
-    // this.transitionendEvent();
+    document.querySelector('#scroll-section-0 h1').setAttribute('style', `top: -${(this.platform.height() + 100) / 2}px`);
   }
 
   @HostListener('window:resize')
   resizeEvent() {
     this.resize$.next();
   }
-
-  // @HostListener('window:orientationchange')
-  // orientationchangeEvent() {
-  //   scrollTo(0, 0);
-  //   setTimeout(() => {
-  //     window.location.reload();
-  //   }, 500);
-  // }
 
   constructor(public app: AppService, public platform: Platform) {
   }

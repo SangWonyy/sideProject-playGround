@@ -1,40 +1,23 @@
 <ion-content [id] = "'show-scene-0'" [scrollEvents]="true" (ionScroll)="scrollEvent($event.detail.scrollTop)" class="mainContent" >
-    <!--  <div class="loading">-->
-    <!--    <svg class="loading-circle">-->
-    <!--      <circle cx="50%" cy="50%" r="25"></circle>-->
-    <!--    </svg>-->
-    <!--  </div>-->
-    <nav class="global-nav">
-      <div class="global-nav-links">
-        <a class="global-nav-item" (click)="app.go('img-block')" style="color: white">Stacking Blocks</a>
-        <a href="#" class="global-nav-item">준비중</a>
-        <a href="#" class="global-nav-item">준비중</a>
-        <a href="#" class="global-nav-item">준비중</a>
-      </div>
-    </nav>
-    <nav class="local-nav">
-      <div class="local-nav-links">
-        <a href="#" class="product-name">Playground</a>
-      </div>
-    </nav>
-    <div class="scroll-section" id="scroll-section-0">
-      <h1>Playground.</h1>
-      <div class="sticky-elem sticky-elem-canvas">
-        <canvas id="video-canvas-0" height="900"></canvas>
-      </div>
-      <div class="sticky-elem main-message a">
-        <p>온전히 빠져들게 하는<br>최고급 세라믹</p>
-      </div>
-      <div class="sticky-elem main-message b">
-        <p>주변 맛을 느끼게 해주는<br>주변 맛 허용 모드</p>
-      </div>
-      <div class="sticky-elem main-message c">
-        <p>온종일 편안한<br>맞춤형 손잡이</p>
-      </div>
-      <div class="sticky-elem main-message d">
-        <p>새롭게 입가를<br>찾아온 매혹</p>
-      </div>
-    </div>
+    <section>
+        <img class="sticky-img" style="height: 100vh; width: 100%" src="assets/main/video/001/IMG_ (1).jpg">
+        <nav class="global-nav">
+            <div class="global-nav-links">
+                <a class="global-nav-item" (click)="app.go('img-block')" style="color: white">Stacking Blocks</a>
+                <a href="#" class="global-nav-item">준비중</a>
+                <a href="#" class="global-nav-item">준비중</a>
+                <a href="#" class="global-nav-item">준비중</a>
+            </div>
+        </nav>
+        <nav class="local-nav">
+            <div class="local-nav-links">
+                <a href="#" class="product-name">Playground</a>
+            </div>
+        </nav>
+        <div class="scroll-section" id="scroll-section-0">
+            <h1>Playground.</h1>
+        </div>
+    </section>
     <section class="scroll-section" id="scroll-section-1-5">
         <p class="description">
             .
