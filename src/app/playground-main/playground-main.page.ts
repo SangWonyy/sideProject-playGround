@@ -60,8 +60,10 @@ export class PlaygroundMainPage implements OnInit {
       }
     ];
     this.setLayout(); // 중간에 새로고침 시, 콘텐츠 양에 따라 높이 계산에 오차가 발생하는 경우를 방지하기 위해 before-load 클래스 제거 전에도 확실하게 높이를 세팅하도록 한번 더 실행
-    this.disapearH1Point = (this.platform.height() + 100) / 2;
-    document.querySelector('#scroll-section-0 h1').setAttribute('style', `top: -${this.disapearH1Point}px`);
+    const h1Position = (this.platform.height() + 100) / 2;
+    document.querySelector('#scroll-section-0 h1').setAttribute('style', `top: -${h1Position}px`);
+
+
   }
 
   @HostListener('window:resize')
@@ -113,12 +115,22 @@ export class PlaygroundMainPage implements OnInit {
   }
 
   opacityMessage() {
-    
+    if (this.yOffset > 700) {
+      const sticyElem = document.querySelector('.sticky-elem');
+      const stickyElePosition = this.yOffset + ((this.platform.height() - 200) / 2);
+      
+      sticyElem.setAttribute('style', `top: ${stickyElePosition}px`);
+      // const stickyEle = document.querySelector('.sticky-elem');
+      // stickyEle.setAttribute('style', `opacity: ${(this.yOffset - 700)/ 700 }`);
+    }
   }
 
   scrollEvent(scrollTop) {
     this.yOffset = scrollTop;
+    console.log(this.yOffset);
+    console.log('platform height ::', this.platform.height())
     this.checkMenu();
+    this.opacityMessage();
   }
 
 }
