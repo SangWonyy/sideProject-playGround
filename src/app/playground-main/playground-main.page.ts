@@ -21,6 +21,7 @@ export class PlaygroundMainPage implements OnInit {
   public sceneInfo;
   public resize$ = new Subject();
   public disapearH1Point: number;
+  public h1Position: number;
   @HostListener('window:load')
   playMain() {
     this.sceneInfo = [
@@ -60,9 +61,10 @@ export class PlaygroundMainPage implements OnInit {
       }
     ];
     this.setLayout(); // 중간에 새로고침 시, 콘텐츠 양에 따라 높이 계산에 오차가 발생하는 경우를 방지하기 위해 before-load 클래스 제거 전에도 확실하게 높이를 세팅하도록 한번 더 실행
-    const h1Position = (this.platform.height() + 100) / 2;
-    document.querySelector('#scroll-section-0 h1').setAttribute('style', `top: -${h1Position}px`);
-
+    const h1Ele = document.querySelector('#scroll-section-0 h1');
+    this.h1Position = (this.platform.height() + 100) / 2;
+    h1Ele.setAttribute('style', `top: -${this.h1Position}px`);
+    this.h1Position += h1Ele.clientHeight;
 
   }
 
@@ -115,14 +117,22 @@ export class PlaygroundMainPage implements OnInit {
   }
 
   opacityMessage() {
-    if (this.yOffset > 700) {
-      const sticyElem = document.querySelector('.sticky-elem');
-      const stickyElePosition = this.yOffset + ((this.platform.height() - 200) / 2);
+    const stickyElem = document.querySelector('.sticky-elem') as HTMLElement;
+    if (this.yOffset > this.h1Position) {
       
-      sticyElem.setAttribute('style', `top: ${stickyElePosition}px`);
-      // const stickyEle = document.querySelector('.sticky-elem');
-      // stickyEle.setAttribute('style', `opacity: ${(this.yOffset - 700)/ 700 }`);
+      if (!stickyElem.style.top) {
+        const stickyElePosition = ((this.platform.height() - 300) / 2);
+        stickyElem.style.top = `${stickyElePosition}px`;
+      }
+      if (+stickyElem.style.opacity <= 1) {
+        stickyElem.style.opacity = `${(this.yOffset - this.h1Position)/ 500 }`;
+      }
+      
     }
+
+    // if (this.h1Position + 800 > this.yOffset) {
+    //   stickyElem.style.opacity = `${(this.h1Position + 800 - this.yOffset)/ 500 }`;
+    // }
   }
 
   scrollEvent(scrollTop) {
@@ -132,5 +142,31 @@ export class PlaygroundMainPage implements OnInit {
     this.checkMenu();
     this.opacityMessage();
   }
+
+  calcValues(values, currentYOffset) {
+    let rv;
+    // 현재 씬(스크롤섹션)에서 스크롤된 범위를 비율로 구하기
+    const scrollHeight = this.sceneInfo[0].scrollheight;
+    const scrollRatio = currentYOffset / scrollHeight;
+
+    if (values.length === 3) {
+        // start ~ end 사이에 애니메이션 실행
+        const partScrollStart = values[2].start * scrollHeight;
+        const partScrollEnd = values[2].end * scrollHeight;
+        const partScrollHeight = partScrollEnd - partScrollStart;
+
+        if (currentYOffset >= partScrollStart && currentYOffset <= partScrollEnd) {
+            rv = (currentYOffset - partScrollStart) / partScrollHeight * (values[1] - values[0]) + values[0];
+        } else if (currentYOffset < partScrollStart) {
+            rv = values[0];
+        } else if (currentYOffset > partScrollEnd) {
+            rv = values[1];
+        }
+    } else {
+        rv = scrollRatio * (values[1] - values[0]) + values[0];
+    }
+
+    return rv;
+}
 
 }

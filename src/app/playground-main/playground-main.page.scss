@@ -167,10 +167,17 @@ a {
 }
 
 .sticky-elem {
-  position: absolute;
-  font-size: 1.5rem;
-  color: white;
-  left: 35%;
+  font-family: 'Nanum Pen Script', cursive;
+  position: fixed;
+  font-size: 1.7rem;
+  text-align: center;
+  color: #FF9F59;
+  left: 33%;
+}
+
+.sticky-elem img {
+  max-width: 100px;
+  max-height: 100px;
 }
 
 @media (min-width: 1024px) {
