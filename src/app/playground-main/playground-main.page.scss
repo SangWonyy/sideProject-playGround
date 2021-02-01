@@ -166,7 +166,24 @@ a {
   margin-bottom: 10rem;
 }
 
-.sticky-elem {
+.sticky-elem.first {
+  font-family: 'Nanum Pen Script', cursive;
+  position: fixed;
+  font-size: 1.7rem;
+  text-align: center;
+  color: #FF9F59;
+  left: 33%;
+  opacity: 0;
+}
+.sticky-elem.second {
+  font-family: 'Nanum Pen Script', cursive;
+  position: fixed;
+  font-size: 1.7rem;
+  text-align: center;
+  color: #FF9F59;
+  left: 33%;
+}
+.sticky-elem.third {
   font-family: 'Nanum Pen Script', cursive;
   position: fixed;
   font-size: 1.7rem;
