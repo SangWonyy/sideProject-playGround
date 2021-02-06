@@ -1,4 +1,4 @@
-<ion-content [id] = "'show-scene-0'" [scrollEvents]="true" (ionScroll)="scrollEvent($event.detail.scrollTop)" class="mainContent" >
+<ion-content [id] = "'show-scene-0'" [scrollEvents]="true" (ionScroll)="scrollEvent($event.detail.scrollTop)" class="mainContent" [style.height.px]="contentHeight">
     <section>
         <img class="sticky-img" style="height: 100vh; width: 100%" src="assets/main/video/001/IMG_ (1).jpg">
         <nav class="global-nav">
@@ -17,30 +17,6 @@
         <div class="scroll-section" id="scroll-section-0">
             <h1>Playground.</h1>
         </div>
-        <div class="sticky-elem first">
-            Animation
-            <br>
-            <img src="../../assets/icon/cat.png">
-        </div>
-        <div class="sticky-elem second">
-            Animation
-            <br>
-            <img src="../../assets/icon/cat.png">
-        </div>
-        <div class="sticky-elem third">
-            Animation
-            <br>
-            <img src="../../assets/icon/cat.png">
-        </div>
-        <!-- <div class="sticky-elem b">
-            <p>OPEN API</p>
-        </div>
-        <div class="sticky-elem c">
-            <p>온종일 편안한<br>맞춤형 손잡이</p>
-        </div>
-        <div class="sticky-elem d">
-            <p>새롭게 입가를<br>찾아온 매혹</p>
-        </div> -->
     </section>
     <section class="scroll-section" id="scroll-section-1-5">
         <p class="description">
