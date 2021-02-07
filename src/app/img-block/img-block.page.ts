@@ -18,6 +18,7 @@ export class ImgBlockPage implements OnInit {
     public thumbnail;
     public imgList = [];
     public isMoreLoad = true;
+    public animationType = 'block';
 
     constructor(public app: AppService, private fileService: FileService, private imgResourceService: ImgResourceService, public domSanitizer: DomSanitizer, public platform: Platform) {
     }
@@ -96,6 +97,12 @@ export class ImgBlockPage implements OnInit {
 
     file_input_rest(event) {
         event.target.value = null;
+    }
+
+    changeType(changeValue) {
+        if(changeValue === 'text') {
+            
+        }
     }
 
     // async file_upload(event) {

@@ -1,18 +1,21 @@
 <ion-content >
-    <section>
+    <section *ngIf="animationType === 'block'">
         <h1 *ngIf="!isMoreLoad">Hello Animation World.</h1>
         <div *ngIf="isMoreLoad" class="spinner-grow text-warning spin" role="status">
             <span class="visually-hidden"></span>
         </div>
         <div class="banner">
-
         </div>
     </section>
     <ion-button class="back-button" (click)="app.go('playground-main')"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
-    <div class="upload-button">
+    <select class="browser-default custom-select select-button" [(ngModel)] = "animationType" (ngModelChange)="changeType($event)">
+        <option value="block">Image Block</option>
+        <option value="text">Text Line</option>
+      </select>
+    <div class="upload-button" *ngIf="animationType === 'block'">
         <div style="display: flex;">
-            <div style="transform: rotate(-17deg)" class="pt-3 pr-3">
-                <ion-icon  src="../../assets/icon/3d-arrow.svg" style="font-size: 60px"></ion-icon>
+            <div style="transform: rotate(-17deg)" class="pt-5 pr-3">
+                <ion-icon  src="../../assets/icon/3d-arrow.svg" style="font-size: 60px; color: #FF9F59"></ion-icon>
             </div>
             <ion-button (click)="filelistInput.click()"> <ion-icon name="cloud-upload-outline"></ion-icon></ion-button>
             <input #filelistInput

@@ -58,7 +58,7 @@ export class PlaygroundMainPage implements OnInit {
 
   setLayout() {
     // 각 스크롤 섹션의 높이 세팅
-    this.contentHeight = 3 * window.innerHeight;
+    this.contentHeight = 2.5 * window.innerHeight;
     this.yOffset = window.pageYOffset;
 
     if(!this.h1Position) {

@@ -6,7 +6,7 @@ ion-item {
 ion-content {
   --ion-color-primary: #FF9F59;
 }
-//
+
 ::ng-deep.mat-menu-content {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
@@ -38,6 +38,16 @@ ion-fab-button {
   top: 1%;
 }
 
+.select-button {
+  position: fixed;
+  right: 9%;
+  top: 1.7%;
+  max-width: 187px;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+
+
 .back-button {
   position: fixed;
   left: 1%;
@@ -48,6 +58,7 @@ ion-fab-button {
   position: absolute;
   font-family: 'Londrina Solid', cursive;
   font-size: 1.4rem;
+  color: #FF9F59;
 }
 
 section {
