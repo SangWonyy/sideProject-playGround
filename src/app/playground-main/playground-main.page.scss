@@ -197,6 +197,17 @@ a {
   max-height: 100px;
 }
 
+section.text-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.text-section .textDiv{
+  position: relative;
+  transform: skewY(345deg);
+}
 @media (min-width: 1024px) {
   #scroll-section-0 h1 {
     font-size: 9vw;

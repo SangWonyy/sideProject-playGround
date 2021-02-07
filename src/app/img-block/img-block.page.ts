@@ -4,6 +4,7 @@ import {ImgResourceService} from '../service/img/img.resource.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {AppService} from "../service/app.service";
 import {Platform} from "@ionic/angular";
+import { HostListener } from '@angular/core';
 const createKeyframe = require('create-keyframe')
 const insertCss = require('insert-css');
 @Component({
@@ -19,16 +20,22 @@ export class ImgBlockPage implements OnInit {
     public imgList = [];
     public isMoreLoad = true;
     public animationType = 'block';
-
+    public position = document.documentElement;
+    public insertText = 'Please, Enter any text';
     constructor(public app: AppService, private fileService: FileService, private imgResourceService: ImgResourceService, public domSanitizer: DomSanitizer, public platform: Platform) {
     }
 
+    @HostListener('document:mousemove', ['$event']) 
+    onMouseMove(e) {
+        this.position.style.setProperty('--moveX', e.clientX + 'px');
+    }
+    
     ngOnInit() {
 
     }
 
     async ionViewWillEnter() {
-        this.insertAnimation("../../assets/background/background.jpg");
+        this.insertAnimationBlock("../../assets/background/background.jpg");
         this.isMoreLoad = false;
         this.drawBlock();
     }
@@ -45,32 +52,12 @@ export class ImgBlockPage implements OnInit {
         }
     }
 
-    insertAnimation(imgUrl) {
-        const insertBackground = createKeyframe({
-            0: {
-                opacity: 0,
-                transform: 'scale(0) translateY(400px)'
-            },
-            50: {
-                opacity: 1,
-                background: `url(${imgUrl}) fixed center/cover`
-            },
-            100: {
-                opacity: 1,
-                transform: 'scale(1) translateY(0px)',
-                background: `url(${imgUrl}) fixed center/cover`
-            }
-        }, 'animate')
-
-        insertCss(insertBackground.css);
-    }
-
     async imgUpload(event) {
         this.isMoreLoad = true;
         document.querySelectorAll('.blocks').forEach((element) => element.parentNode.removeChild(element));
         const imgUrl = await this.getImgUrl(event);
 
-        this.insertAnimation(imgUrl);
+        this.insertAnimationBlock(imgUrl);
         this.isMoreLoad = false;
         this.drawBlock();
     }
@@ -101,8 +88,28 @@ export class ImgBlockPage implements OnInit {
 
     changeType(changeValue) {
         if(changeValue === 'text') {
-            
+
         }
+    }
+
+    insertAnimationBlock(imgUrl) {
+        const insertBackground = createKeyframe({
+            0: {
+                opacity: 0,
+                transform: 'scale(0) translateY(400px)'
+            },
+            50: {
+                opacity: 1,
+                background: `url(${imgUrl}) fixed center/cover`
+            },
+            100: {
+                opacity: 1,
+                transform: 'scale(1) translateY(0px)',
+                background: `url(${imgUrl}) fixed center/cover`
+            }
+        }, 'animate')
+
+        insertCss(insertBackground.css);
     }
 
     // async file_upload(event) {

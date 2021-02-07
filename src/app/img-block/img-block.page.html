@@ -7,11 +7,54 @@
         <div class="banner">
         </div>
     </section>
+    <section class='text-section' *ngIf="animationType === 'text'">
+        <div class='textDiv'>
+            <h2 style="--i:0.5">
+                <span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span>
+            </h2>
+            <h2 style="--i:1.5">
+                <span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span>
+            </h2>
+            <h2 style="--i:2.5">
+                <span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span>
+            </h2>
+            <h2 style="--i:2.25">
+                <span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span>
+            </h2>            
+            <h2 style="--i:0.5">
+                <span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span>
+            </h2>
+            <h2 style="--i:1.5">
+                <span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span>
+            </h2>
+            <h2 style="--i:2.5">
+                <span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span>
+            </h2>
+            <h2 style="--i:2.25">
+                <span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span>
+            </h2>
+            <h2 style="--i:0.3">
+                <span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span>
+            </h2>
+            <h2 style="--i:1.9">
+                <span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span>
+            </h2>
+            <h2 style="--i:2.5">
+                <span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span>
+            </h2>
+            <h2 style="--i:0.5">
+                <span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span><span>{{insertText}}</span>
+            </h2>
+        </div>
+    </section>
     <ion-button class="back-button" (click)="app.go('playground-main')"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
     <select class="browser-default custom-select select-button" [(ngModel)] = "animationType" (ngModelChange)="changeType($event)">
-        <option value="block">Image Block</option>
+        <option value="block" >Image Block</option>
         <option value="text">Text Line</option>
-      </select>
+    </select>
+    <div class="form-outline" class="textBox" *ngIf="animationType === 'text'" style="width: 187px">
+        <input type="tel" id="typePhone" class="form-control" placeholder="enter any text" [(ngModel)]="insertText"/>
+    </div>
     <div class="upload-button" *ngIf="animationType === 'block'">
         <div style="display: flex;">
             <div style="transform: rotate(-17deg)" class="pt-5 pr-3">
@@ -19,12 +62,12 @@
             </div>
             <ion-button (click)="filelistInput.click()"> <ion-icon name="cloud-upload-outline"></ion-icon></ion-button>
             <input #filelistInput
-                   (change)="imgUpload($event)" accept="image/*"
-                   (click)="file_input_rest($event)"
-                   class="invisible"
-                   multiple
-                   style="position: absolute;"
-                   type="file">
+                (change)="imgUpload($event)" accept="image/*"
+                (click)="file_input_rest($event)"
+                class="invisible"
+                multiple
+                style="position: absolute;"
+                type="file">
         </div>
         <div class="upload-comments">
             Please, Try uploading any file.
