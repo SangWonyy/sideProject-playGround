@@ -14,20 +14,16 @@ const routes: Routes = [
   },
   {
     path: 'img-block',
-    data: {menuType: 'upload'},
     loadChildren: () => import('./img-block/img-block.module').then(m => m.ImgBlockPageModule)
   },
   {
-    path: 'img-edit',
-    data: {menuType: 'edit'},
-    loadChildren: () => import('./img-edit/img-edit.module').then(m => m.ImgEditPageModule)
+    path: 'img-slide',
+    loadChildren: () => import('./img-slide/img-slide.module').then(m => m.ImgSlidePageModule)
   },
   {
-    path: 'img-slide',
-    data: {menuType: 'slide'},
-    loadChildren: () => import('./img-slide/img-slide.module').then(m => m.ImgSlidePageModule)
+    path: 'simple-game',
+    loadChildren: () => import('./simple-game/simple-game.module').then(m => m.SimpleGamePageModule)
   }
-
 
 ];
 
