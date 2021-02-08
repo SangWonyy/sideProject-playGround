@@ -14,6 +14,6 @@ sideProject-playGround
 - **프로젝트 영상** - https://www.instagram.com/dev_u_sang/
   - instagram으로 관리 ( 배경음악 O )
 
-- **사용 라이브러리 || OpenAPI**
+- **사용 라이브러리, OpenAPI**
   -create-keyframe
   -matter.js
