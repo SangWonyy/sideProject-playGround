@@ -2,7 +2,9 @@
 # 현 AWS 만료로 서버 이용은 불가, 연동만 되어있는 상태
 
 sideProject-playGround
-
+- **HTTP서버 : fastify** - https://www.fastify.io/
+  - 블로그에 정리 
+  - https://blog.naver.com/havedreamm/222108873749
 - **project Goal** -
  - 해보지 못했던, 해보고 싶었던 코딩을 자유롭게 내 마음대로 배우고 실행해보는 나만의 놀이터를 만드는게 목표.
 
