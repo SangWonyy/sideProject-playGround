@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./simple-game.page.scss'],
 })
 export class SimpleGamePage implements OnInit {
-
+  public isMoreLoad = false;
   constructor() { }
 
   ngOnInit() {
