@@ -10,3 +10,11 @@ project Goal
 이에 나 또한 현 프로젝트를 진행하면서, 다양한 경험, 다양한 놀이를 하며, 자유롭게 즐기는 것이 목표이다.
 
 나만의 코딩 놀이터, 제대로 즐겨보자.
+
+- 프로젝트 영상
+instagram으로 관리 ( 배경음악 O )
+https://www.instagram.com/dev_u_sang/
+
+- 사용 라이브러리 || OpenAPI
+create-keyframe
+matter.js
