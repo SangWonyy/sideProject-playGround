@@ -1,3 +1,7 @@
+ion-content {
+    --ion-color-primary: #FF9F59;
+  }
+  
 section {
     position: relative;
     width: 100%;
@@ -21,6 +25,7 @@ section h1 {
     align-items: center;
     height: 100%
 }
+
 .gameBox {
     margin: auto;
     position: relative;
@@ -28,4 +33,11 @@ section h1 {
     width: 80vw;
     height: 60vh;
     line-height: 100vh;
+}
+
+.back-button {
+    position: fixed;
+    left: 1%;
+    top: 1%;
+    z-index: 2;
 }
