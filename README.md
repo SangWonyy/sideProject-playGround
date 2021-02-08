@@ -11,9 +11,8 @@ sideProject-playGround
 
 나만의 코딩 놀이터, 제대로 즐겨보자.
 
-- **프로젝트 영상** -
+- **프로젝트 영상** - https://www.instagram.com/dev_u_sang/
   - instagram으로 관리 ( 배경음악 O )
-  - https://www.instagram.com/dev_u_sang/
 
 - **사용 라이브러리 || OpenAPI** -
   -create-keyframe
