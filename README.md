@@ -3,7 +3,7 @@
 
 sideProject-playGround
 
-- **project Goal**
+- **project Goal** -
  - 해보지 못했던, 해보고 싶었던 코딩을 자유롭게 내 마음대로 배우고 실행해보는 나만의 놀이터를 만드는게 목표.
 
 평소 유튜브를 보면서, 여러 open api, library 등 흥미로운 소스들이 많다. 또한 다양한 퍼포먼스를 보여주는 웹페이지들을 접하게 됐다.
@@ -11,10 +11,10 @@ sideProject-playGround
 
 나만의 코딩 놀이터, 제대로 즐겨보자.
 
-- **프로젝트 영상**
+- **프로젝트 영상** -
  - instagram으로 관리 ( 배경음악 O )
  - https://www.instagram.com/dev_u_sang/
 
-- **사용 라이브러리 || OpenAPI**
+- **사용 라이브러리 || OpenAPI** -
  -create-keyframe
  -matter.js
