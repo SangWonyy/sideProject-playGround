@@ -15,5 +15,5 @@ sideProject-playGround
   - instagram으로 관리 ( 배경음악 O )
 
 - **사용 라이브러리, OpenAPI**
-  -create-keyframe
-  -matter.js
+  - create-keyframe
+  - matter.js
