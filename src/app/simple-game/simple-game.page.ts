@@ -46,6 +46,20 @@ export class SimpleGamePage implements OnInit {
         }
       });
 
+      const controllBarLeft = Matter.Bodies.rectangle(gameBoxWidth * 0.05, gameBoxHeight * 0.07, 15, 35,  {
+        isStatic: true,
+        render: {
+          fillStyle: '#1FFF26',
+        }
+      });
+
+      const controllBarRight = Matter.Bodies.rectangle(gameBoxWidth * 0.95, gameBoxHeight * 0.07, 15, 35,  {
+        isStatic: true,
+        render: {
+          fillStyle: '#1FFF26',
+        }
+      });
+
       const ball = Matter.Bodies.circle((gameBoxWidth / 2) - 12.5, 100, 25, {
         render: {
           sprite: {
@@ -55,10 +69,12 @@ export class SimpleGamePage implements OnInit {
           },
           // isStatic: true
         },
-        frictionStatic: 1
+        friction: 0.05,
+        frictionAir: 0.0005,
+        restitution: 1
       });
 
-      Matter.World.add(engine.world, [bottomWall, topWall, leftWall, rightWall, obstacle1, obstacle2, obstacle3, ball]);
+      Matter.World.add(engine.world, [bottomWall, topWall, leftWall, rightWall, obstacle1, obstacle2, obstacle3, controllBarLeft, controllBarRight, ball]);
       Matter.Engine.run(engine);
       Matter.Render.run(render);
     } catch (e) {
