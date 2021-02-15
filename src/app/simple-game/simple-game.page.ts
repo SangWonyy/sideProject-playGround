@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as Matter from 'matter-js';
 import { AppService } from '../service/app.service';
+import {fromEvent, Observable, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-simple-game',
@@ -9,9 +10,29 @@ import { AppService } from '../service/app.service';
 })
 export class SimpleGamePage implements OnInit {
   public isMoreLoad = false;
+  public keyDownObservable$: Observable<Event>;
+  public subscriptions: Array<Subscription> = [];
   constructor(public app: AppService) { }
 
   ngOnInit() {
+    this.keyDownObservable$ = fromEvent(document, 'keydown');
+    this.subscriptions.push(
+        this.keyDownObservable$.subscribe(
+            (event) => {
+              // @ts-ignore
+              if (event.keyCode === 38) { // 위 방향키
+
+                // @ts-ignore
+              } else if (event.keyCode === 40) { // 아래 방향키
+                // @ts-ignore
+              } else if (event.keyCode === 87) { // w
+                // @ts-ignore
+              } else if (event.keyCode === 83) { // s
+
+              }
+            }
+        )
+    );
   }
 
 
