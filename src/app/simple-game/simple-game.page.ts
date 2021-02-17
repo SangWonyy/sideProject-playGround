@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import * as Matter from 'matter-js';
 import { AppService } from '../service/app.service';
 import {fromEvent, Observable, Subscription} from 'rxjs';
@@ -8,10 +8,14 @@ import {fromEvent, Observable, Subscription} from 'rxjs';
   templateUrl: './simple-game.page.html',
   styleUrls: ['./simple-game.page.scss'],
 })
-export class SimpleGamePage implements OnInit {
+export class SimpleGamePage implements OnInit, OnDestroy {
   public isMoreLoad = false;
   public keyDownObservable$: Observable<Event>;
   public subscriptions: Array<Subscription> = [];
+  public controllBarLeft;
+  public controllBarRight;
+  public gameBoxWidth: number;
+  public gameBoxHeight: number;
   constructor(public app: AppService) { }
 
   ngOnInit() {
@@ -19,16 +23,36 @@ export class SimpleGamePage implements OnInit {
     this.subscriptions.push(
         this.keyDownObservable$.subscribe(
             (event) => {
+              let y: number;
+              let x: number;
               // @ts-ignore
               if (event.keyCode === 38) { // 위 방향키
-
+                y = this.controllBarRight.position.y - 20;
+                x = this.controllBarRight.position.x;
+                if (y > 30) {
+                  Matter.Body.setPosition(this.controllBarRight, {y, x});
+                }
                 // @ts-ignore
               } else if (event.keyCode === 40) { // 아래 방향키
+                y = this.controllBarRight.position.y + 20;
+                x = this.controllBarRight.position.x;
+                if(y < this.gameBoxHeight - 28) {
+                  Matter.Body.setPosition(this.controllBarRight, {y, x});
+                }
                 // @ts-ignore
               } else if (event.keyCode === 87) { // w
+                y = this.controllBarLeft.position.y - 20;
+                x = this.controllBarLeft.position.x;
+                if (y > 30) {
+                  Matter.Body.setPosition(this.controllBarLeft, {y, x});
+                }
                 // @ts-ignore
               } else if (event.keyCode === 83) { // s
-
+                y = this.controllBarLeft.position.y + 20;
+                x = this.controllBarLeft.position.x;
+                if(y < this.gameBoxHeight - 28) {
+                  Matter.Body.setPosition(this.controllBarLeft, {y, x});
+                }
               }
             }
         )
@@ -41,47 +65,47 @@ export class SimpleGamePage implements OnInit {
   }
   playDefence() {
     try {
-      const {engine, render, gameBoxWidth, gameBoxHeight} = this.createEngine();
+      const {engine, render} = this.createEngine();
 
-      const bottomWall = Matter.Bodies.rectangle(gameBoxWidth / 2, gameBoxHeight - 10, gameBoxWidth, 1, {isStatic: true});
-      const topWall = Matter.Bodies.rectangle(gameBoxWidth / 2, 10, gameBoxWidth, 1, {isStatic: true});
-      const leftWall = Matter.Bodies.rectangle(10, gameBoxHeight / 2, 1, gameBoxHeight, {isStatic: true});
-      const rightWall = Matter.Bodies.rectangle(gameBoxWidth - 10, gameBoxHeight / 2, 1, gameBoxHeight, {isStatic: true});
-      const obstacle1 = Matter.Bodies.rectangle(gameBoxWidth / 4, (gameBoxHeight + 10) / 3, 15, 25,  {
+      const bottomWall = Matter.Bodies.rectangle(this.gameBoxWidth / 2, this.gameBoxHeight - 10, this.gameBoxWidth, 1, {isStatic: true});
+      const topWall = Matter.Bodies.rectangle(this.gameBoxWidth / 2, 10, this.gameBoxWidth, 1, {isStatic: true});
+      const leftWall = Matter.Bodies.rectangle(10, this.gameBoxHeight / 2, 1, this.gameBoxHeight, {isStatic: true});
+      const rightWall = Matter.Bodies.rectangle(this.gameBoxWidth - 10, this.gameBoxHeight / 2, 1, this.gameBoxHeight, {isStatic: true});
+      const obstacle1 = Matter.Bodies.rectangle(this.gameBoxWidth / 4, (this.gameBoxHeight + 10) / 3, 15, 25,  {
         isStatic: true,
         render: {
           fillStyle: '#FF9F59',
         }
       });
-      const obstacle2 = Matter.Bodies.rectangle((gameBoxWidth * 2 + 30) / 3, (gameBoxHeight * 2) / 3, 15, 25,  {
-        isStatic: true,
-        render: {
-          fillStyle: '#FF9F59',
-        }
-      });
-
-      const obstacle3 = Matter.Bodies.circle(gameBoxWidth / 2, (gameBoxHeight) / 2, 15,  {
+      const obstacle2 = Matter.Bodies.rectangle((this.gameBoxWidth * 2 + 30) / 3, (this.gameBoxHeight * 2) / 3, 15, 25,  {
         isStatic: true,
         render: {
           fillStyle: '#FF9F59',
         }
       });
 
-      const controllBarLeft = Matter.Bodies.rectangle(gameBoxWidth * 0.05, gameBoxHeight * 0.07, 15, 35,  {
+      const obstacle3 = Matter.Bodies.circle(this.gameBoxWidth / 2, (this.gameBoxHeight) / 2, 15,  {
+        isStatic: true,
+        render: {
+          fillStyle: '#FF9F59',
+        }
+      });
+
+      this.controllBarLeft = Matter.Bodies.rectangle(this.gameBoxWidth * 0.05, this.gameBoxHeight * 0.07, 15, 35,  {
         isStatic: true,
         render: {
           fillStyle: '#1FFF26',
         }
       });
 
-      const controllBarRight = Matter.Bodies.rectangle(gameBoxWidth * 0.95, gameBoxHeight * 0.07, 15, 35,  {
+      this.controllBarRight = Matter.Bodies.rectangle(this.gameBoxWidth * 0.95, this.gameBoxHeight * 0.07, 15, 35,  {
         isStatic: true,
         render: {
           fillStyle: '#1FFF26',
         }
       });
 
-      const ball = Matter.Bodies.circle((gameBoxWidth / 2) - 12.5, 100, 25, {
+      const ball = Matter.Bodies.circle((this.gameBoxWidth / 2) - 12.5, 100, 25, {
         render: {
           sprite: {
             texture: '../../assets/game/ball.png',
@@ -90,12 +114,12 @@ export class SimpleGamePage implements OnInit {
           },
           // isStatic: true
         },
-        friction: 0.05,
-        frictionAir: 0.0005,
+        friction: 0,
+        frictionAir: 0.0002,
         restitution: 1
       });
 
-      Matter.World.add(engine.world, [bottomWall, topWall, leftWall, rightWall, obstacle1, obstacle2, obstacle3, controllBarLeft, controllBarRight, ball]);
+      Matter.World.add(engine.world, [bottomWall, topWall, leftWall, rightWall, obstacle1, obstacle2, obstacle3, this.controllBarLeft, this.controllBarRight, ball]);
       Matter.Engine.run(engine);
       Matter.Render.run(render);
     } catch (e) {
@@ -105,22 +129,29 @@ export class SimpleGamePage implements OnInit {
 
   createEngine() {
     const gameBox = document.querySelector('.gameBox');
-    const gameBoxWidth = gameBox.clientWidth - 1;
-    const gameBoxHeight = gameBox.clientHeight;
+    this.gameBoxWidth = gameBox.clientWidth - 1;
+    this.gameBoxHeight = gameBox.clientHeight;
     const engine = Matter.Engine.create();
     const render = Matter.Render.create({
       element: gameBox,
       engine,
       options: {
-        width: gameBoxWidth,
-        height: gameBoxHeight,
+        width: this.gameBoxWidth,
+        height: this.gameBoxHeight,
         wireframes: false
       }
 
     });
 
-    return {engine, render, gameBoxWidth, gameBoxHeight};
+    return {engine, render};
   }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription) => {
+      if (subscription) {
+        subscription.unsubscribe();
+      }
+    });
+  }
 
 }
