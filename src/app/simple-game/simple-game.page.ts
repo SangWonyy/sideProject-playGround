@@ -88,21 +88,24 @@ export class SimpleGamePage implements OnInit, OnDestroy {
         isStatic: true,
         render: {
           fillStyle: '#FF9F59',
-        }
+        },
+        restitution: 1
       });
 
       this.controllBarLeft = Matter.Bodies.rectangle(this.gameBoxWidth * 0.05, this.gameBoxHeight * 0.07, 15, 35,  {
         isStatic: true,
         render: {
           fillStyle: '#1FFF26',
-        }
+        },
+        restitution: 1
       });
 
       this.controllBarRight = Matter.Bodies.rectangle(this.gameBoxWidth * 0.95, this.gameBoxHeight * 0.07, 15, 35,  {
         isStatic: true,
         render: {
           fillStyle: '#1FFF26',
-        }
+        },
+        restitution: 1
       });
 
       const ball = Matter.Bodies.circle((this.gameBoxWidth / 2) - 12.5, 100, 25, {
@@ -115,10 +118,14 @@ export class SimpleGamePage implements OnInit, OnDestroy {
           // isStatic: true
         },
         friction: 0,
-        frictionAir: 0.0002,
+        frictionAir: 0.001,
         restitution: 1
       });
 
+      // Matter.Events.1
+      // Matter.Events.on(engine, 'collisionStart', (event) => {
+      //   debugger
+      // });
       Matter.World.add(engine.world, [bottomWall, topWall, leftWall, rightWall, obstacle1, obstacle2, obstacle3, this.controllBarLeft, this.controllBarRight, ball]);
       Matter.Engine.run(engine);
       Matter.Render.run(render);
