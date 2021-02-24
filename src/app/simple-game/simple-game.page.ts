@@ -91,7 +91,7 @@ export class SimpleGamePage implements OnInit, OnDestroy {
         restitution: 1
       });
 
-      this.controllBarLeft = Matter.Bodies.rectangle(this.gameBoxWidth * 0.05, this.gameBoxHeight * 0.5, 15, 35,  {
+      this.controllBarLeft = Matter.Bodies.rectangle(this.gameBoxWidth * 0.05, this.gameBoxHeight * 0.5, 15, 45,  {
         isStatic: true,
         render: {
           fillStyle: '#1FFF26',
@@ -99,7 +99,7 @@ export class SimpleGamePage implements OnInit, OnDestroy {
         restitution: 1
       });
 
-      this.controllBarRight = Matter.Bodies.rectangle(this.gameBoxWidth * 0.95, this.gameBoxHeight * 0.5, 15, 35,  {
+      this.controllBarRight = Matter.Bodies.rectangle(this.gameBoxWidth * 0.95, this.gameBoxHeight * 0.5, 15, 45,  {
         isStatic: true,
         render: {
           fillStyle: '#1FFF26',
