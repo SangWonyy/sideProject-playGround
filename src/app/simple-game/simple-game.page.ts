@@ -85,14 +85,13 @@ export class SimpleGamePage implements OnInit, OnDestroy {
       });
 
       const obstacle3 = Matter.Bodies.circle(this.gameBoxWidth / 2, (this.gameBoxHeight) / 2, 15,  {
-        isStatic: true,
         render: {
           fillStyle: '#FF9F59',
         },
         restitution: 1
       });
 
-      this.controllBarLeft = Matter.Bodies.rectangle(this.gameBoxWidth * 0.05, this.gameBoxHeight * 0.07, 15, 35,  {
+      this.controllBarLeft = Matter.Bodies.rectangle(this.gameBoxWidth * 0.05, this.gameBoxHeight * 0.5, 15, 35,  {
         isStatic: true,
         render: {
           fillStyle: '#1FFF26',
@@ -100,7 +99,7 @@ export class SimpleGamePage implements OnInit, OnDestroy {
         restitution: 1
       });
 
-      this.controllBarRight = Matter.Bodies.rectangle(this.gameBoxWidth * 0.95, this.gameBoxHeight * 0.07, 15, 35,  {
+      this.controllBarRight = Matter.Bodies.rectangle(this.gameBoxWidth * 0.95, this.gameBoxHeight * 0.5, 15, 35,  {
         isStatic: true,
         render: {
           fillStyle: '#1FFF26',
@@ -108,7 +107,7 @@ export class SimpleGamePage implements OnInit, OnDestroy {
         restitution: 1
       });
 
-      const ball = Matter.Bodies.circle((this.gameBoxWidth / 2) - 12.5, 100, 25, {
+      const ball = Matter.Bodies.circle((this.gameBoxWidth / 2), 50, 25, {
         render: {
           sprite: {
             texture: '../../assets/game/ball.png',
@@ -122,10 +121,27 @@ export class SimpleGamePage implements OnInit, OnDestroy {
         restitution: 1
       });
 
-      // Matter.Events.1
-      // Matter.Events.on(engine, 'collisionStart', (event) => {
-      //   debugger
-      // });
+      const x = (this.gameBoxWidth / 2) - 12.5;
+      const y = 100;
+      Matter.Events.on(engine, 'collisionStart', (event) => {
+        if(event.pairs[0].bodyB.id === 10 && event.pairs[0].bodyA.id === 3) { // 왼쪽벽 + 공
+          alert('game over');
+          Matter.Body.setPosition(ball, {y, x});
+          Matter.Body.setVelocity(ball, {x: 0, y: 10});
+          engine.timeScale = 0.5;
+        } else if (event.pairs[0].bodyB.id === 10 && event.pairs[0].bodyA.id === 4) { // 오른쪽벽 + 공
+          alert('game over');
+          Matter.Body.setPosition(ball, {y, x});
+          Matter.Body.setVelocity(ball, {x: 0, y: 10});
+          engine.timeScale = 0.5;
+        }
+      });
+      setInterval(() => {
+        Matter.Body.setVelocity(obstacle3, {x: 10, y: -12});
+      }, 1000);
+      setInterval(() => {
+        Matter.Body.setVelocity(obstacle3, {x: -10, y: -8});
+      }, 800);
       Matter.World.add(engine.world, [bottomWall, topWall, leftWall, rightWall, obstacle1, obstacle2, obstacle3, this.controllBarLeft, this.controllBarRight, ball]);
       Matter.Engine.run(engine);
       Matter.Render.run(render);
