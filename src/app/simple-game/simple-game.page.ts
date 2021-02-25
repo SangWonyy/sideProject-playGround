@@ -28,28 +28,28 @@ export class SimpleGamePage implements OnInit, OnDestroy {
               let x: number;
               // @ts-ignore
               if (event.keyCode === 38) { // 위 방향키
-                y = this.controllBarRight.position.y - 20;
+                y = this.controllBarRight.position.y - 30;
                 x = this.controllBarRight.position.x;
                 if (y > 30) {
                   Matter.Body.setPosition(this.controllBarRight, {y, x});
                 }
                 // @ts-ignore
               } else if (event.keyCode === 40) { // 아래 방향키
-                y = this.controllBarRight.position.y + 20;
+                y = this.controllBarRight.position.y + 30;
                 x = this.controllBarRight.position.x;
                 if(y < this.gameBoxHeight - 28) {
                   Matter.Body.setPosition(this.controllBarRight, {y, x});
                 }
                 // @ts-ignore
               } else if (event.keyCode === 87) { // w
-                y = this.controllBarLeft.position.y - 20;
+                y = this.controllBarLeft.position.y - 30;
                 x = this.controllBarLeft.position.x;
                 if (y > 30) {
                   Matter.Body.setPosition(this.controllBarLeft, {y, x});
                 }
                 // @ts-ignore
               } else if (event.keyCode === 83) { // s
-                y = this.controllBarLeft.position.y + 20;
+                y = this.controllBarLeft.position.y + 30;
                 x = this.controllBarLeft.position.x;
                 if(y < this.gameBoxHeight - 28) {
                   Matter.Body.setPosition(this.controllBarLeft, {y, x});
