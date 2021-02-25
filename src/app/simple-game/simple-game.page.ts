@@ -11,6 +11,7 @@ import {fromEvent, Observable, Subscription} from 'rxjs';
 export class SimpleGamePage implements OnInit, OnDestroy {
   public isMoreLoad = false;
   public keyDownObservable$: Observable<Event>;
+  public resizeObservable$: Observable<Event>;
   public subscriptions: Array<Subscription> = [];
   public controllBarLeft;
   public controllBarRight;
@@ -59,7 +60,6 @@ export class SimpleGamePage implements OnInit, OnDestroy {
     );
   }
 
-
   ionViewWillEnter() {
     this.playDefence();
   }
@@ -84,11 +84,22 @@ export class SimpleGamePage implements OnInit, OnDestroy {
         }
       });
 
-      const obstacle3 = Matter.Bodies.circle(this.gameBoxWidth / 2, (this.gameBoxHeight) / 2, 15,  {
+      const obstacle3 = Matter.Bodies.circle(this.gameBoxWidth / 2, (this.gameBoxHeight) / 2, 25,  {
         render: {
-          fillStyle: '#FF9F59',
+          sprite: {
+            texture: '../../assets/game/devil.png',
+            xScale: 0.1,
+            yScale: 0.1
+          }
         },
         restitution: 1
+      });
+
+      const obstacle4 = Matter.Bodies.rectangle(this.gameBoxWidth / 2, (this.gameBoxHeight) / 2, 15, 25,  {
+        isStatic: true,
+        render: {
+          fillStyle: '#FF9F59',
+        }
       });
 
       this.controllBarLeft = Matter.Bodies.rectangle(this.gameBoxWidth * 0.05, this.gameBoxHeight * 0.5, 15, 45,  {
@@ -137,12 +148,19 @@ export class SimpleGamePage implements OnInit, OnDestroy {
         }
       });
       setInterval(() => {
-        Matter.Body.setVelocity(obstacle3, {x: 10, y: -12});
-      }, 1000);
+        Matter.Body.setVelocity(obstacle3, {x: 11, y: -12});
+      }, 1600);
       setInterval(() => {
         Matter.Body.setVelocity(obstacle3, {x: -10, y: -8});
-      }, 800);
-      Matter.World.add(engine.world, [bottomWall, topWall, leftWall, rightWall, obstacle1, obstacle2, obstacle3, this.controllBarLeft, this.controllBarRight, ball]);
+      }, 1500);
+      setInterval(() => {
+        Matter.Body.rotate(obstacle1, Math.PI / 3);
+        Matter.Body.rotate(obstacle2, Math.PI / 3);
+        Matter.Body.rotate(obstacle4, Math.PI / 6);
+      }, 40);
+
+
+      Matter.World.add(engine.world, [bottomWall, topWall, leftWall, rightWall, obstacle1, obstacle2, obstacle3, this.controllBarLeft, this.controllBarRight, ball, obstacle4]);
       Matter.Engine.run(engine);
       Matter.Render.run(render);
     } catch (e) {
@@ -151,9 +169,7 @@ export class SimpleGamePage implements OnInit, OnDestroy {
   }
 
   createEngine() {
-    const gameBox = document.querySelector('.gameBox');
-    this.gameBoxWidth = gameBox.clientWidth - 1;
-    this.gameBoxHeight = gameBox.clientHeight;
+    const gameBox = this.setSize();
     const engine = Matter.Engine.create();
     const render = Matter.Render.create({
       element: gameBox,
@@ -167,6 +183,13 @@ export class SimpleGamePage implements OnInit, OnDestroy {
     });
 
     return {engine, render};
+  }
+
+  setSize() {
+    const gameBox = document.querySelector('.gameBox');
+    this.gameBoxWidth = gameBox.clientWidth - 1;
+    this.gameBoxHeight = gameBox.clientHeight;
+    return gameBox;
   }
 
   ngOnDestroy() {
